@@ -1,0 +1,2 @@
+class ClaimsCategory < ApplicationRecord
+end

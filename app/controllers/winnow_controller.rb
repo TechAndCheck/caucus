@@ -1,0 +1,2 @@
+class WinnowController < ApplicationController
+end
