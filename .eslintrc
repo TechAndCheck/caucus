@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "semi": [2, "never"],
+    "max-len": ["error", { "code": 150 }],
+    "prefer-destructuring": ["error", {"array": false, "object": false}],
+    "react/destructuring-assignment": [2, 'never'],
+    "react/prop-types": [0, 'never'],
+    "react/jsx-props-no-spreading": [0],
+  },
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+}
