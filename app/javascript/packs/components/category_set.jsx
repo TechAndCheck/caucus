@@ -9,7 +9,7 @@ const CategorySetButton = (props) => {
     return (
       <CategoryButton
         key={category}
-        categoryName={category}
+        category={category}
         onClick={props.onClick}
       />
     )

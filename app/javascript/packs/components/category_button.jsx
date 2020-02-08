@@ -4,7 +4,7 @@ import React from 'react'
 
 const CategoryButton = (props) => {
   const buttonClicked = () => {
-    props.onClick(props.categoryName)
+    props.onClick(props.category)
   }
 
   return (
@@ -13,7 +13,7 @@ const CategoryButton = (props) => {
       className="btn btn-primary btn-sm"
       onClick={buttonClicked}
     >
-      {props.categoryName}
+      {props.category.name}
     </button>
   )
 }

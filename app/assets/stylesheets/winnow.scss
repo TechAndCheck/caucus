@@ -31,10 +31,15 @@ $gray: #808080;
 }
 
 .category-buttons {
+  display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: start;
   line-height: 2.2;
   margin: auto;
   margin-top: 10px;
   width: 600px;
+
+  button {
+    margin-right: 10px;
+  }
 }
