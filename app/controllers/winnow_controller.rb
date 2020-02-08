@@ -1,5 +1,4 @@
 class WinnowController < ApplicationController
-
   def index
   end
 
@@ -9,14 +8,13 @@ class WinnowController < ApplicationController
       Category.find(id)
     end
 
-    byebug
     redirect_to :root
   end
 
   private
 
-  def split_category_ids(id_string)
-    seperator = ":::"
-    id_string.split(seperator)
-  end
+    def split_category_ids(id_string)
+      seperator = ":::"
+      id_string.split(seperator)
+    end
 end
