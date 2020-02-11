@@ -80,3 +80,8 @@ Style/RegexpLiteral:
     - 'config/application.rb'
     - 'config/initializers/route_downcaser.rb'
   Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Include:
+    - 'db/schema.rb'
+  Enabled: true

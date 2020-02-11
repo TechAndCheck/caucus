@@ -5,5 +5,5 @@
 # database.
 
 class Claim < ApplicationRecord
-  has_and_belongs_to_may :categories
+  has_and_belongs_to_many :categories
 end

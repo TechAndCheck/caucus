@@ -58,3 +58,18 @@ gem "bootstrap"
 
 # JQuery is used by Bootstrap
 gem "jquery-rails"
+
+# A GraphQL client based on the graphql-client, but better
+gem "graphlient"
+
+# HTTPArty helps make HTTP calls fun!
+gem "httparty"
+
+# For managing timed jobs
+gem "clockwork"
+
+# Sidekiq for background processes
+gem "sidekiq"
+
+# Figaro works well for handling environment variables
+gem "figaro"

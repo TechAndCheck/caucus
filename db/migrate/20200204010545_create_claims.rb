@@ -7,7 +7,7 @@ class CreateClaims < ActiveRecord::Migration[6.0]
       t.date :date
       t.string :location
       t.string :publisher_name
-      t.uuid :fact_string_id
+      t.uuid :fact_stream_id, unique: true
       t.timestamps
     end
   end
