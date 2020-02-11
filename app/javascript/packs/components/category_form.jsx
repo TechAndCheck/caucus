@@ -6,7 +6,7 @@ const CategoryForm = (props) => {
   const extractIds = (categories) => categories.map((category) => category.id)
 
   return (
-    <input type="hidden" name="categories" value={extractIds(props.categories).join(':::')} />
+    <input type="hidden" name="claim[categories]" value={extractIds(props.categories).join(':::')} />
   )
 }
 

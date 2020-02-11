@@ -30,8 +30,9 @@
       </div>
     </div>
     <hr>
-    <%= form_with do %>
-    <div id="categories"></div>
+    <%= form_with path: winnow_submit_path, method: :patch do %>
+    <%= hidden_field(:claim, :id) %>
+    <div id="categories" data-categories="<%= @categories.to_json %>" data-assigned-categories="<%= @claim.categories.to_json %>"></div>
     <hr>
       <!-- <button type="submit" style="float:left" class="btn btn-outline-secondary submit">Skip</button> -->
       <button type="submit" class="btn btn-outline-info submit">Save</button>

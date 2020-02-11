@@ -3,6 +3,8 @@ class WinnowController < ApplicationController
 
   def index
     @claim = new_claim
+    # We only want categories not already assigned to the claim
+    @categories = Category.all - @claim.categories
   end
 
   def submit
@@ -10,7 +12,7 @@ class WinnowController < ApplicationController
     @categories = category_ids.map do |id|
       Category.find(id)
     end
-    @claim.update!({ categories: @claim.categories << @categories })
+    @claim.update!({ categories: @categories })
 
     redirect_to root_url
   end
@@ -35,7 +37,7 @@ private
   # Get a new claim to show to a user
   # This could get interesting with locks and such so it's a seperate function
   def new_claim
-    claim = Claim.where(checked: false).take
+    claim = Claim.where(checked: false).order("RANDOM()").first
     claim
   end
 end

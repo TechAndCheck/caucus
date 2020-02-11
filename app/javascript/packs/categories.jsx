@@ -9,8 +9,8 @@ class Categories extends Component {
     super(props)
 
     this.state = {
-      available: [{ name: 'war', id: 1 }, { name: 'impeachment', id: 2 }, { name: 'Iraq', id: 3 }],
-      assigned: [{ name: 'Terrorism', id: 4 }],
+      available: props.categories,
+      assigned: props.assignedCategories,
     }
   }
 
@@ -45,9 +45,9 @@ class Categories extends Component {
     return (
       <div>
         <CategoryForm categories={this.state.assigned} />
-        <CategorySet title="Assigned Categories" categories={this.state.assigned} onClick={this.buttonClicked} />
+        <CategorySet title="Assigned Categories" key="assigned" categories={this.state.assigned} onClick={this.buttonClicked} />
         <hr />
-        <CategorySet title="Available Categories" categories={this.state.available} onClick={this.buttonClicked} />
+        <CategorySet title="Available Categories" key="available" categories={this.state.available} onClick={this.buttonClicked} />
       </div>
     )
   }
@@ -57,8 +57,11 @@ class Categories extends Component {
 const loadDataFromDom = () => {
   const categoriesDiv = document.querySelector('#categories')
   if (categoriesDiv) {
+    const categoriesData = JSON.parse(categoriesDiv.getAttribute('data-categories'))
+    const assignedCategoriesData = JSON.parse(categoriesDiv.getAttribute('data-assigned-categories'))
+
     ReactDOM.render(
-      <Categories />, categoriesDiv,
+      <Categories categories={categoriesData} assignedCategories={assignedCategoriesData} />, categoriesDiv,
     )
   }
 }
