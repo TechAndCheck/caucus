@@ -1,2 +1,0 @@
-class ClaimsCategory < ApplicationRecord
-end

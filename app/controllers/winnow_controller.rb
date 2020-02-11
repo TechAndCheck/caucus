@@ -1,20 +1,41 @@
 class WinnowController < ApplicationController
+  before_action :verify_claim, except: [:index]
+
   def index
+    @claim = new_claim
   end
 
   def submit
-    category_ids = split_category_ids(params[:categories])
+    category_ids = split_category_ids(claim_params[:categories])
     @categories = category_ids.map do |id|
       Category.find(id)
     end
+    @claim.update!({ categories: @claim.categories << @categories })
 
-    redirect_to :root
+    redirect_to root_url
   end
 
-  private
+private
 
-    def split_category_ids(id_string)
-      seperator = ":::"
-      id_string.split(seperator)
-    end
+  def verify_claim
+    @claim = Claim.find(claim_params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  end
+
+  def claim_params
+    params.require(:claim).permit(:id, :categories)
+  end
+
+  def split_category_ids(id_string)
+    seperator = ":::"
+    id_string.split(seperator)
+  end
+
+  # Get a new claim to show to a user
+  # This could get interesting with locks and such so it's a seperate function
+  def new_claim
+    claim = Claim.where(checked: false).take
+    claim
+  end
 end

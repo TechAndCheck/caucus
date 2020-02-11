@@ -10,7 +10,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - db/schema.rb
+    - 'db/schema.rb'
     - 'node_modules/**/*'
     - 'redis-stable/**/*'
     - 'bin/**/*'

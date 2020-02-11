@@ -3,8 +3,6 @@ module ScheduledTasks
     # This is the task that checks for new fact checks from FactStream.
     # It then save them as claims
     class Import < ScheduledTask
-      require "fact_stream_client"
-
       def perform
         print_start_message
         start

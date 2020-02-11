@@ -11,7 +11,7 @@ $gray: #808080;
   min-width: 100vh;
 
   .winnow-content {
-    box-shadow: 0 0 37px -14px $shadow-color;
+    // box-shadow: 0 0 37px -14px $shadow-color;
     margin: auto;
 
     .submit {
@@ -33,10 +33,11 @@ $gray: #808080;
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
   line-height: 2.2;
   margin: auto;
   margin-top: 10px;
+  min-height: 31px;
   width: 600px;
 
   button {

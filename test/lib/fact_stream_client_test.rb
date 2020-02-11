@@ -25,4 +25,12 @@ class CategoryTest < ActiveSupport::TestCase
     fact_checks = fact_stream_client.all_fact_checks(true)
     assert_same 230, fact_checks.count, "FactStreamClient should have continued"
   end
+
+  test "FactStream breaks at the end" do
+    # FactStream returns a 500 if it can't find anything, this pulls an arbitarily large page to make sure
+    fact_stream_client = FactStreamClient.new
+    assert_raises(JSON::ParserError) do
+      fact_stream_client.fact_checks(5000, 50)
+    end
+  end
 end

@@ -3,13 +3,16 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
+import { Application } from 'stimulus'
+import { definitionsFromContext } from 'stimulus/webpack-helpers'
+import 'controllers'
 
-import { Application } from "stimulus"
-import { definitionsFromContext } from "stimulus/webpack-helpers"
+require('@rails/ujs').start()
+require('turbolinks').start()
+require('@rails/activestorage').start()
+require('channels')
+require('jquery')
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -22,5 +25,3 @@ import { definitionsFromContext } from "stimulus/webpack-helpers"
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-
-import "controllers"

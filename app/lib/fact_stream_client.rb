@@ -34,7 +34,13 @@ class FactStreamClient
     loop do
       print "Retrieving page ##{page}, #{fact_checks.count} fact checks so far...\n"
       # Get the fact checks for this loop
-      next_fact_checks = fact_checks(page, count)
+      begin
+        next_fact_checks = fact_checks(page, count)
+      rescue JSON::ParserError
+        # If there's a parser error it means we hit the end.
+        break
+      end
+
       # If it's empty, let's just jump out
       break if next_fact_checks.empty?
 
@@ -120,8 +126,9 @@ private
     # Parse the JSON string in the response body
     begin
       parsed_request = JSON.parse(response.body)
-    rescue UnparserError
-      raise "Error parsing response from FactStream, request options: #{request_options}"
+    rescue JSON::ParserError => e
+      puts "Error parsing response from FactStream, request options: #{response.request.options}"
+      raise e
     end
 
     # We make sure we have all the elements we need in the response.

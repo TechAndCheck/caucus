@@ -4,8 +4,19 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+one:
+  statement: "Test Claim 1"
+  speaker_name: "Person 1"
+  speaker_title: "Person's Title 1"
+  date: "2020-10-20"
+  publisher_name: "The Sample Times"
+  fact_stream_id: "77cecfa6-a5e4-4438-b144-9c13379008ac"
+
+two:
+  statement: "Test Claim 2"
+  speaker_name: "Person 2"
+  speaker_title: "Person's Title 2"
+  date: "2020-10-21"
+  publisher_name: "The Sample Times"
+  fact_stream_id: "77cecfa6-a5e4-4438-b144-9c13379008ad"

@@ -6,4 +6,14 @@
 
 class Claim < ApplicationRecord
   has_and_belongs_to_many :categories
+  validates :fact_stream_id, uniqueness: true
+
+  before_save :deduplicate_categories
+
+private
+
+  # Insure there's not more than one category in categories
+  def deduplicate_categories
+    self.categories = self.categories.uniq
+  end
 end

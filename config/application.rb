@@ -18,8 +18,5 @@ module Caucus
 
     # Set Sidekiq as the default ActiveJob handler
     config.active_job.queue_adapter = :sidekiq
-
-    # We add in the app/lib folder for some custom stuff
-    config.autoload_paths << Rails.root.join("app/lib")
   end
 end
