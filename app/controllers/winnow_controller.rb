@@ -12,7 +12,7 @@ class WinnowController < ApplicationController
     @categories = category_ids.map do |id|
       Category.find(id)
     end
-    @claim.update!({ categories: @categories })
+    @claim.update!({ categories: @categories, checked: true })
 
     redirect_to root_url
   end

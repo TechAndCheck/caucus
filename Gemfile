@@ -76,3 +76,6 @@ gem "sidekiq"
 
 # Figaro works well for handling environment variables
 gem "figaro"
+
+# Easy administration dashboards
+gem "administrate", git: "git@github.com:thoughtbot/administrate.git", branch: "master"

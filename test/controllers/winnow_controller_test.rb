@@ -14,6 +14,7 @@ class WinnowControllerTest < ActionDispatch::IntegrationTest
     patch winnow_submit_url(claim), params: { claim: { id: "#{claim.id}", categories: "#{category.id}" } }
 
     assert claim.categories.include?(category), "Category should have been added to claim"
+    assert claim.checked
 
     assert_redirected_to root_url
   end

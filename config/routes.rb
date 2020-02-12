@@ -4,5 +4,11 @@ Rails.application.routes.draw do
   root "winnow#index"
   patch "/", to: "winnow#submit", as: :winnow_submit
 
-  resources :categories
+  namespace :admin do
+    # Add dashboard for your models here
+    resources :categories
+    resources :claims
+
+    root to: "categories#index" # <--- Root route
+  end
 end
