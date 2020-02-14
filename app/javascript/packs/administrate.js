@@ -3,17 +3,17 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
+require('@rails/ujs').start()
+require('turbolinks').start()
 
 // The next line you only need if you want ActiveStorage support
-require("@rails/activestorage").start()
+require('@rails/activestorage').start()
 
 // The next line you only need if you need channels in administrate
-require("channels")
+require('channels')
 
 // The next two lines you only need if you want ActionText support
-require("trix")
-require("@rails/actiontext")
+require('trix')
+require('@rails/actiontext')
 
-require("../administrate/index")
+require('../administrate/index')

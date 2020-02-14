@@ -18,6 +18,8 @@ module Caucus
 
     # Set Sidekiq as the default ActiveJob handler
     config.active_job.queue_adapter = :sidekiq
+
+    # Jobs break unless this happens. Zeigeist gets the wrong job path and errors haard.
     config.load_defaults "6.0"
     config.autoloader = :classic
   end

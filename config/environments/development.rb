@@ -67,7 +67,7 @@ Rails.application.configure do
   config.sass.inline_source_maps = true
 
   # Administrate is giving some odd errors so let's not check in dev
-  config.assets.check_precompiled_asset = false
+  config.assets.check_precompiled_asset = true
 
   config.hosts << "offline-dev.pushapp.press"
 end
