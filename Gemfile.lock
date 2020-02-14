@@ -1,6 +1,13 @@
 GIT
-  remote: git@github.com:thoughtbot/administrate.git
-  revision: 5ad65e18577bb214985f4579cf56cf3cd3bf232f
+  remote: https://github.com/Verseth/animate-rails.git
+  revision: ff6dd54ac8534e3df4a56fabc6a3e307957be886
+  specs:
+    animate-rails (1.0.11)
+      rails
+
+GIT
+  remote: https://github.com/thoughtbot/administrate.git
+  revision: 35f72ad5e783195d725b34b30bc3ae4f359102ac
   branch: master
   specs:
     administrate (0.12.0)
@@ -14,13 +21,6 @@ GIT
       momentjs-rails (~> 2.8)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
-
-GIT
-  remote: https://github.com/Verseth/animate-rails.git
-  revision: ff6dd54ac8534e3df4a56fabc6a3e307957be886
-  specs:
-    animate-rails (1.0.11)
-      rails
 
 GEM
   remote: https://rubygems.org/
