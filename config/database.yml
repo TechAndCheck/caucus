@@ -79,7 +79,6 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: caucus_production
-  username: caucus
-  password: <%= ENV['CAUCUS_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  host: <%= ENV['DATABASE_URL'] %>
+
