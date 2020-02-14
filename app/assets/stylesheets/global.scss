@@ -1,5 +1,17 @@
-.navbar-light {
-  .navbar-brand {
-    color: white;
+.alert {
+  margin-top: 10px;
+}
+
+nav {
+  .session_maintence {
+    float: right;
+    color: $white;
   }
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

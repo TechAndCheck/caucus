@@ -83,7 +83,7 @@ class ClaimDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how claims are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(claim)
-  #   "Claim ##{claim.id}"
-  # end
+  def display_resource(claim)
+    "Claim ##{claim.id}"
+  end
 end

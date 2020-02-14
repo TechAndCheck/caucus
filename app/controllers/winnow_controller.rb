@@ -1,10 +1,12 @@
 class WinnowController < ApplicationController
   before_action :verify_claim, except: [:index]
+  before_action :authenticate_user!
 
   def index
     @claim = new_claim
     # We only want categories not already assigned to the claim
-    @categories = Category.all - @claim.categories
+    @categories = Category.all.order("name ASC") - @claim.categories
+    turbolinks_animate "slideInRight"
   end
 
   def submit
@@ -14,7 +16,7 @@ class WinnowController < ApplicationController
     end
     @claim.update!({ categories: @categories, checked: true })
 
-    redirect_to root_url
+    redirect_to winnow_index_url
   end
 
 private

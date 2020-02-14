@@ -59,4 +59,15 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # As suggested by Devise
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  # For development purposes we want to see the SCSS sources
+  config.sass.inline_source_maps = true
+
+  # Administrate is giving some odd errors so let's not check in dev
+  config.assets.check_precompiled_asset = false
+
+  config.hosts << "offline-dev.pushapp.press"
 end

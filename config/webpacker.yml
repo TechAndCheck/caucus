@@ -63,6 +63,7 @@ development:
     port: 3035
     public: localhost:3035
     hmr: false
+    hot: false
     # Inline should be set to true if using HMR
     inline: true
     overlay: true
@@ -70,7 +71,7 @@ development:
     disable_host_check: true
     use_local_ip: false
     quiet: false
-    pretty: false
+    pretty: true
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:

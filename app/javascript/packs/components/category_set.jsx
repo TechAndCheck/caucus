@@ -1,33 +1,69 @@
 // Show a set of category buttons with a title
 
-import React from 'react'
+import React, { Component } from 'react'
 
 import CategoryButton from './category_button'
+import FilterBox from './filter_box'
 
-const CategorySetButton = (props) => {
-  const categoryButton = (category) => {
+class CategorySetButton extends Component {
+  categoryButton = (category) => (
+    <CategoryButton
+      key={category.id}
+      category={category}
+      onClick={this.props.onClick}
+    />
+  )
+
+  filterDidChange = (e) => {
+    this.props.filterDidChange(e.target.value)
+  }
+
+  filter = () => {
+    if (this.props.filter === undefined) {
+      return null
+    }
+
     return (
-      <CategoryButton
-        key={category.id}
-        category={category}
-        onClick={props.onClick}
-      />
+      <div>
+        <FilterBox
+          clearFilter={this.props.clearFilterClicked}
+          filterDidChange={this.filterDidChange}
+          value={this.props.filter}
+        />
+      </div>
     )
   }
 
-  const buttons = props.categories.map(categoryButton)
+  buttons = () => {
+    const buttons = this.props.categories.map((category) => {
+      if (category.hidden) {
+        return null
+      }
 
-  return (
-    <div>
-      <div className="diminutive-title">
-        {props.title}
-        :
-      </div>
-      <div className="category-buttons">
+      return this.categoryButton(category)
+    })
+
+    return (
+      <div>
         {buttons}
       </div>
-    </div>
-  )
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="diminutive-title">
+          {this.props.title}
+          :
+        </div>
+        {this.filter()}
+        <div className="category-buttons">
+          {this.buttons()}
+        </div>
+      </div>
+    )
+  }
 }
 
 export default CategorySetButton

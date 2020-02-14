@@ -7,6 +7,10 @@ const CategoryButton = (props) => {
     props.onClick(props.category)
   }
 
+  if (props.category.hidden) {
+    return null
+  }
+
   return (
     <button
       type="button"
