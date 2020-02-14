@@ -9,6 +9,7 @@ $_navigation-link-padding: 0.6em;
 .navigation__link {
   background-color: transparent;
   color: $base-font-color;
+  text-decoration: none;
   display: block;
   line-height: 1;
   margin-left: -($_navigation-link-padding);

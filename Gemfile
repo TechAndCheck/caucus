@@ -10,7 +10,7 @@ gem "pg", ">= 0.18", "< 2.0"
 # Use Puma as the app server
 gem "puma", "~> 4.1"
 # Use SCSS for stylesheets
-gem "sass-rails", ">= 6"
+gem "sassc-rails"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", "~> 4.0"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -79,3 +79,15 @@ gem "figaro"
 
 # Easy administration dashboards
 gem "administrate", git: "git@github.com:thoughtbot/administrate.git", branch: "master"
+
+# We want to limit who can get in
+gem "devise"
+
+# We also want users to have roles, like admin
+gem "rolify"
+
+# Animations are cool
+gem "turbolinks-animate"
+
+# Animate.css helps us animate stuff
+gem "animate-rails", git: "https://github.com/Verseth/animate-rails.git"

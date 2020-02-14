@@ -84,4 +84,8 @@ Style/RegexpLiteral:
 Layout/EmptyLinesAroundBlockBody:
   Include:
     - 'db/schema.rb'
-  Enabled: true
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - 'db/migrate/20200212010127_rolify_create_roles.rb'

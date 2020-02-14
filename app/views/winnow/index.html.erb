@@ -1,7 +1,7 @@
  <%= javascript_pack_tag 'categories' %>
 
 <div class="winnow-container">
-  <div class="card winnow-content">
+  <div class="card winnow-content border-info">
   <div class="card-header">
     Categorize Claims
   </div>
@@ -34,7 +34,7 @@
     <%= hidden_field(:claim, :id) %>
     <div id="categories" data-categories="<%= @categories.to_json %>" data-assigned-categories="<%= @claim.categories.to_json %>"></div>
     <hr>
-      <!-- <button type="submit" style="float:left" class="btn btn-outline-secondary submit">Skip</button> -->
+      <%= link_to "Skip", root_url, class: "btn btn-outline-secondary submit", style: "float: left" %>
       <button type="submit" class="btn btn-outline-info submit">Save</button>
     <% end %>
   </div>

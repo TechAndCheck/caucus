@@ -1,0 +1,41 @@
+<div class="devise-container">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin" }) do |f| %>
+    <div class="login-logo">
+      <i class="fas fa-sitemap"></i>
+    </div>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <%= f.label :email, class: "sr-only" %><br />
+    <%= f.email_field(
+          :email,
+          autofocus: true,
+          autocomplete: "email",
+          class: "form-control",
+          placeholder: "Email address"
+        )
+    %>
+
+    <%= f.label :password, class: "sr-only"%>
+    <%= f.password_field(
+          :password,
+          autocomplete: "current-password",
+          class: "form-control",
+          placeholder: "Password"
+        )
+    %>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="checkbox mb-3">
+        <label>
+          <%= f.check_box :remember_me %> Remember me
+        </label>
+      </div>
+    <% end %>
+    <%= f.submit "Sign in", class: "btn btn-lg btn-primary btn-block" %>
+    <%= render "devise/shared/links" %>
+    <p class="mt-5 mb-3 text-muted">
+      A product of the <a href="https://www.reporterslab.org" target="_blank">Duke Reporters' Lab</a><br>
+      Created by <a href="https://www.github.com/cguess" target="_blank">Christopher Guess</a>
+    </p>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.home-logo {
+  display: flex;
+  font-size: 4rem;
+  font-weight: 700;
+  flex-direction: column;
+  text-align: center;
+  font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+
+  .login-logo {
+    font-size: 7rem;
+  }
+
+  .btn {
+    width: 300px;
+    margin: auto;
+    margin-top: 30px;
+  }
+}
