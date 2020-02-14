@@ -78,4 +78,4 @@ gem "sidekiq"
 gem "figaro"
 
 # Easy administration dashboards
-gem "administrate", git: "git@github.com:thoughtbot/administrate.git", branch: "master"
+gem "administrate", git: "https://github.com/thoughtbot/administrate.git", branch: "master"
