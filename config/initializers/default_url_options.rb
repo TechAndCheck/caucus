@@ -6,8 +6,5 @@ if Rails.env == "production"
   host = ENV["HOST_NAME"] ||
     "#{ENV.fetch('HEROKU_APP_NAME')}.herokuapp.com"
 
-  Rails.application.routes.default_url_options.merge!(
-    host: host,
-    protocol: protocol,
-  )
+  Rails.application.routes.default_url_options[:host] = host
 end
