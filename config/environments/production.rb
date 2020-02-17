@@ -96,6 +96,22 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # If a default host is specifically defined then it's used otherwise the app is
+  # assumed to be a Heroku review app. Note that `Hash#fetch` is used defensively
+  # so the app will blow up at boot-time if both `DEFAULT_URL_HOST` and
+  # `HEROKU_APP_NAME` aren't defined.
+  host = ENV["HOST_NAME"] ||
+    "#{ENV.fetch('HEROKU_APP_NAME')}.herokuapp.com"
+
+  # Set the correct protocol as SSL isn't configured in development or test.
+  protocol = Rails.application.config.force_ssl ? "https" : "http"
+
+  Rails.application.routes.default_url_options.merge!(
+    host: host,
+    protocol: protocol,
+  )
+
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
