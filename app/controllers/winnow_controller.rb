@@ -10,11 +10,17 @@ class WinnowController < ApplicationController
   end
 
   def submit
-    category_ids = split_category_ids(claim_params[:categories])
+    category_ids = split_submitted_array(claim_params[:categories])
     @categories = category_ids.map do |id|
       Category.find(id)
     end
+
     @claim.update!({ categories: @categories, checked: true })
+
+    category_suggestions = split_submitted_array(claim_params[:suggestions])
+    @category_suggestions = category_suggestions.map do |name|
+      CategorySuggestion.create!({ name: name, user: current_user, claim: @claim })
+    end
 
     redirect_to winnow_index_url
   end
@@ -28,10 +34,10 @@ private
   end
 
   def claim_params
-    params.require(:claim).permit(:id, :categories)
+    params.require(:claim).permit(:id, :categories, :suggestions)
   end
 
-  def split_category_ids(id_string)
+  def split_submitted_array(id_string)
     seperator = ":::"
     id_string.split(seperator)
   end

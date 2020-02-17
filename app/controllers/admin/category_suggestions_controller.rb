@@ -1,11 +1,24 @@
 module Admin
-  class UsersController < Admin::ApplicationController
+  class CategorySuggestionsController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
     # def update
     #   super
+    #   send_foo_updated_email(requested_resource)
     # end
+
+    def approve
+      @category_suggestion = CategorySuggestion.find(params[:category_suggestion_id])
+      @category_suggestion.approve
+      redirect_back fallback_location: admin_category_suggestions_path, notice: "\"#{@category_suggestion.name}\" approved"
+    end
+
+    def reject
+      @category_suggestion = CategorySuggestion.find(params[:category_suggestion_id])
+      @category_suggestion.reject
+      redirect_back fallback_location: admin_category_suggestions_path, error: "\"#{@category_suggestion.name}\" rejected"
+    end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
@@ -20,31 +33,21 @@ module Admin
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+    def scoped_resource
+      resource_class.where({ status: :awaiting_review })
+    end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all
     # empty values into nil values. It uses other APIs such as `resource_class`
     # and `dashboard`:
     #
-    def resource_params
-      to_return = params.require(resource_class.model_name.param_key).
-        permit(dashboard.permitted_attributes)
 
-      to_return_clone = to_return.clone
-
-      to_return.each do |k, v|
-        to_return_clone[k] = nil if v == ""
-      end
-
-      to_return_clone
-    end
+    # def resource_params
+    #   params.require(resource_class.model_name.param_key).
+    #     permit(dashboard.permitted_attributes).
+    #     transform_values { |value| value == "" ? nil : value }
+    # end
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information

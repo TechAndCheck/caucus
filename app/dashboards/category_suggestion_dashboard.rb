@@ -1,6 +1,11 @@
 require "administrate/base_dashboard"
 
-class ClaimDashboard < Administrate::BaseDashboard
+class CategorySuggestionDashboard < Administrate::BaseDashboard
+  # disable 'new' links
+  def valid_action?(name, resource = resource_class)
+    %w[new].exclude?(name.to_s) && super
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,18 +13,13 @@ class ClaimDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    categories: Field::HasMany,
     id: Field::Number,
-    statement: Field::String,
-    speaker_name: Field::String,
-    speaker_title: Field::String,
-    date: Field::Date,
-    location: Field::String,
-    publisher_name: Field::String,
-    fact_stream_id: Field::String.with_options(searchable: false),
+    name: Field::String,
+    user: Field::BelongsTo,
+    claim: Field::BelongsTo,
+    category: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    checked: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,42 +28,31 @@ class ClaimDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  categories
-  statement
-  speaker_name
-  date
+  id
+  name
+  user
+  claim
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
   id
-  statement
-  speaker_name
-  speaker_title
-  date
-  location
-  publisher_name
-  fact_stream_id
-  categories
+  name
+  user
+  claim
+  category
   created_at
   updated_at
-  checked
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-  categories
-  statement
-  speaker_name
-  speaker_title
-  date
-  location
-  publisher_name
-  fact_stream_id
-  checked
+  name
+  user
+  claim
   ].freeze
 
   # COLLECTION_FILTERS
@@ -76,14 +65,12 @@ class ClaimDashboard < Administrate::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {
-    checked: ->(resources) { resources.where(checked: true) }
-  }.freeze
+  COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how claims are displayed
+  # Overwrite this method to customize how category suggestions are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(claim)
-    "#{claim.statement}"
+  def display_resource(category_suggestion)
+    "CategorySuggestion #{category_suggestion.name}"
   end
 end

@@ -11,10 +11,22 @@ const CategoryButton = (props) => {
     return null
   }
 
+  const classes = () => {
+    const classNames = ['btn', 'btn-sm']
+
+    if (props.suggested) {
+      classNames.push('btn-info')
+    } else {
+      classNames.push('btn-primary')
+    }
+
+    return classNames.join(' ')
+  }
+
   return (
     <button
       type="button"
-      className="btn btn-primary btn-sm"
+      className={classes()}
       onClick={buttonClicked}
     >
       {props.category.name}

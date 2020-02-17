@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     resources :claims
     resources :users
     resources :roles, only: [:index, :show]
+    resources :category_suggestions do
+      patch :approve, as: "approve"
+      patch :reject, as: "reject"
+    end
 
     root to: "categories#index" # <--- Root route
   end

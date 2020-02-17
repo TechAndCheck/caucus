@@ -6,6 +6,7 @@ import FuzzySet from 'fuzzyset.js'
 
 import CategoryForm from './components/category_form'
 import CategorySet from './components/category_set'
+import SuggestionBox from './components/suggestion_box'
 
 class Categories extends Component {
   constructor(props) {
@@ -27,9 +28,11 @@ class Categories extends Component {
     this.state = {
       available,
       assigned,
+      suggestions: [],
       visibleAvailable: available,
       fuzzySet,
       filter: '',
+      suggestionText: '',
     }
   }
 
@@ -106,15 +109,53 @@ class Categories extends Component {
     ))
   }
 
+  suggestionTextDidChange = (e) => {
+    const value = e.target.value
+    this.setState({ suggestionText: value })
+  }
+
+  onSuggestionSubmit = () => {
+    this.setState((state) => {
+      const suggestions = _.cloneDeep(state.suggestions)
+      suggestions.push({ id: Math.floor((Math.random() * 1000) + 1), name: state.suggestionText })
+      return { suggestions, suggestionText: '' }
+    })
+  }
+
+  onSuggestionButtonClicked = (category) => {
+    this.setState((state) => {
+      const suggestions = _.cloneDeep(state.suggestions)
+
+      // Figure out which array contains the categoryName
+      const suggestionsIndex = _.findIndex(suggestions, { name: category.name })
+      if (suggestionsIndex !== -1) {
+        // If it's in suggestions, we'll remove it
+        _.pullAt(suggestions, suggestionsIndex)
+      }
+
+      return { suggestions }
+    })
+  }
+
   render() {
     return (
       <div>
-        <CategoryForm categories={this.state.assigned} />
+        <CategoryForm
+          categories={this.state.assigned}
+          suggestions={this.state.suggestions}
+        />
         <CategorySet
           title="Assigned Categories"
           key="assigned"
           categories={this.state.assigned}
           onClick={this.buttonClicked}
+        />
+        <CategorySet
+          title="Suggested Categories"
+          key="suggestions"
+          categories={this.state.suggestions}
+          onClick={this.onSuggestionButtonClicked}
+          suggested
         />
         <hr />
         <CategorySet
@@ -125,6 +166,11 @@ class Categories extends Component {
           filter={this.state.filter}
           filterDidChange={this.filterDidChange}
           clearFilterClicked={this.clearFilterClicked}
+        />
+        <SuggestionBox
+          value={this.state.suggestionText}
+          suggestionDidChange={this.suggestionTextDidChange}
+          onSuggestionSubmit={this.onSuggestionSubmit}
         />
       </div>
     )

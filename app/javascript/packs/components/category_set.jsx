@@ -11,6 +11,7 @@ class CategorySetButton extends Component {
       key={category.id}
       category={category}
       onClick={this.props.onClick}
+      suggested={this.props.suggested}
     />
   )
 
