@@ -26,6 +26,7 @@ jobs:
         SECRET_KEY_BASE: XXXXXXX
         FACT_STREAM_BASE_URI: https://www.factstream.co
         MAILGUN_API_KEY: XXXXXXX
+        RAILS_ENV: test
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
