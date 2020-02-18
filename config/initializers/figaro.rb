@@ -3,5 +3,6 @@
 Figaro.require_keys(
   "RAILS_ENV",
   "SECRET_KEY_BASE",
-  "FACT_STREAM_BASE_URI"
+  "FACT_STREAM_BASE_URI",
+  "MAILGUN_API_KEY"
 )
