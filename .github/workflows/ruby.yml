@@ -60,6 +60,9 @@ jobs:
           SECRET_KEY_BASE: XXXXXXX
           FACT_STREAM_BASE_URI: https://www.factstream.co
           MAILGUN_API_KEY: XXXXXXX
+          DATABASE_HOST: "localhost"
+          DATABASE_USERNAME: "postgres"
+          DATABASE_PASSWORD: "postgres"
         run: |
           bundle exec rails db:migrate
       - name: Rails test
@@ -68,6 +71,9 @@ jobs:
           SECRET_KEY_BASE: XXXXXXX
           FACT_STREAM_BASE_URI: https://www.factstream.co
           MAILGUN_API_KEY: XXXXXXX
+          DATABASE_HOST: "localhost"
+          DATABASE_USERNAME: "postgres"
+          DATABASE_PASSWORD: "postgres"
         run: |
           bundle exec rails test
 
