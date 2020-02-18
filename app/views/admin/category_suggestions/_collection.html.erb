@@ -104,6 +104,24 @@ to display a collection of resources in an HTML table.
           ) if show_action? :destroy, resource %></td>
         <% end %>
       </tr>
+      <% similar_categories = resource.similar_categories
+      if similar_categories.count > 0 %>
+      <tr>
+        <td colspan="3"></td>
+        <td colspan="5">
+          <span class="text-muted"><em>Possibly Similar Categories:</em></span>
+          <% resource.similar_categories.each do |category| %>
+            <%= link_to(
+              category.name,
+              admin_category_suggestion_assign_similar_category_path(resource, category_id: category.id),
+              class: "text-color-blue",
+              style: "text-decoration: underline;",
+              method: :patch) %>
+            <%= " | " unless category == resource.similar_categories.last %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

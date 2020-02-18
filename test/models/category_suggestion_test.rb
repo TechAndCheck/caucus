@@ -36,4 +36,21 @@ class CategorySuggestionTest < ActiveSupport::TestCase
     suggestion.update!({ name: "Test name" })
     assert_equal "Test name", suggestion.name, "A category suggestion name should not be titleized when being updated"
   end
+
+  test "Searching for similar categories doesn't raise errors" do
+    assert_nothing_raised do
+      suggestion = CategorySuggestion.create({ name: "test name", claim: claims(:one), user: users(:one) })
+      suggestion.similar_categories
+    end
+  end
+
+  test "A category can be assigned even if not the suggestion" do
+    category = categories(:one)
+    claim = claims(:one)
+    suggestion = CategorySuggestion.create({ name: "Test", claim: claim, user: users(:one) })
+    suggestion.assign_similar_category(category)
+
+    assert_equal category, suggestion.category, "Category should be assigned when a category is assigned"
+    assert claim.categories.include?(category), "Claim should now have assigned category"
+  end
 end

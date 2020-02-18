@@ -15,9 +15,19 @@ class CategorySuggestion < ApplicationRecord
     self.update({ status: :approved, category: category })
   end
 
+  def assign_similar_category(category)
+    self.claim.categories << category
+    self.update({ status: :approved, category: category })
+  end
+
   def reject
     self.update({ status: :rejected })
   end
+
+  def similar_categories
+    Category.search_by_name(self.name)
+  end
+
 
 private
 

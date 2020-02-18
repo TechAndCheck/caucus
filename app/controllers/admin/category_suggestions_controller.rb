@@ -20,6 +20,13 @@ module Admin
       redirect_back fallback_location: admin_category_suggestions_path, error: "\"#{@category_suggestion.name}\" rejected"
     end
 
+    def assign_similar_category
+      category = Category.find(params[:category_id])
+      category_suggestion = CategorySuggestion.find(params[:category_suggestion_id])
+      category_suggestion.assign_similar_category(category)
+      redirect_back fallback_location: admin_category_suggestions_path, error: "\"#{category.name}\" assigned"
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

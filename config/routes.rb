@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :category_suggestions do
       patch :approve, as: "approve"
       patch :reject, as: "reject"
+      patch :assign_similar_category, as: "assign_similar_category"
     end
 
     root to: "categories#index" # <--- Root route
