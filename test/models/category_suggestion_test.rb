@@ -23,4 +23,17 @@ class CategorySuggestionTest < ActiveSupport::TestCase
 
     assert category.size > 0, "Category should be created when a category suggestion is approved"
   end
+
+  test "A category suggestion name should be titleized when being updated" do
+    suggestion = CategorySuggestion.create({ name: "test name", claim: claims(:one), user: users(:one) })
+    assert_equal "Test Name", suggestion.name, "A category suggestion name should be titleized when being created"
+  end
+
+  test "A category suggestion name should not be titleized when being edited" do
+    suggestion = CategorySuggestion.create({ name: "test name", claim: claims(:one), user: users(:one) })
+    assert_equal "Test Name", suggestion.name, "A category suggestion name should be titleized when being created"
+
+    suggestion.update!({ name: "Test name" })
+    assert_equal "Test name", suggestion.name, "A category suggestion name should not be titleized when being updated"
+  end
 end

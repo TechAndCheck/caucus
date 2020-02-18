@@ -3,6 +3,8 @@ class CategorySuggestion < ApplicationRecord
   belongs_to :claim
   belongs_to :category, optional: true
 
+  before_create :titleize_name
+
   enum status: [ :awaiting_review, :rejected, :approved ]
 
   validates :status, inclusion: { in: self.statuses,
@@ -28,5 +30,9 @@ private
     end
 
     category
+  end
+
+  def titleize_name
+    self.name = self.name.titleize
   end
 end
