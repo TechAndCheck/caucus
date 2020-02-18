@@ -1,36 +1,65 @@
-name: Ruby
+# Based on https://dev.to/vvo/a-rails-and-postgresql-setup-for-github-actions-ci-nc8
+name: Test
 
 on: [push]
 
 jobs:
   build:
-    # Service containers to run with `build`
-    services:
-      # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres
-        ports: 
-          - 5432:5432
-            
     runs-on: ubuntu-latest
 
+    # Similar to docker-compose.yml but not the same, 🤷‍♂️
+    services:
+      postgres:
+        image: postgres:11.6-alpine
+        env:
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.7.x
-    - name: Run tests
-      env:
-        SECRET_KEY_BASE: XXXXXXX
-        FACT_STREAM_BASE_URI: https://www.factstream.co
-        MAILGUN_API_KEY: XXXXXXX
-        RAILS_ENV: test
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rails db:create
-        bundle exec rails db:migrate
-        bundle exec rails test
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Ruby version specified in `.ruby-version`
+        uses: eregon/use-ruby-action@master # this will use by default the .ruby-version file in your repository
+      - name: Install required apt packages
+        run: |
+          sudo apt-get -y install libpq-dev
+      - name: Setup cache key and directory for gems cache
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('**/Gemfile.lock') }}
+      - name: Read Node.js version to install from `.nvmrc`
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Install required Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Get Yarn cache directory path
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Setup cache key and directory for node_modules cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Yarn install
+        run: yarn --frozen-lockfile
+      - name: Rails test
+        env: # Or as an environment variable
+          RAILS_ENV: test
+          SECRET_KEY_BASE: XXXXXXX
+          FACT_STREAM_BASE_URI: https://www.factstream.co
+          MAILGUN_API_KEY: XXXXXXX
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          bundle exec rails test
 
