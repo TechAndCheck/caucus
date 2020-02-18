@@ -4,7 +4,15 @@ on: [push]
 
 jobs:
   build:
-
+    # Service containers to run with `build`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        ports: 
+          - 5432:5432
+            
     runs-on: ubuntu-latest
 
     steps:
@@ -21,5 +29,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+        bundle exec rails db:create
+        bundle exec rails db:migrate
         bundle exec rails test
 
