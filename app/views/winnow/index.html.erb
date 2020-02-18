@@ -34,7 +34,7 @@
     <%= hidden_field(:claim, :id) %>
     <div id="categories" data-categories="<%= @categories.to_json %>" data-assigned-categories="<%= @claim.categories.to_json %>"></div>
     <hr>
-      <%= link_to "Skip", root_url, class: "btn btn-outline-secondary submit", style: "float: left" %>
+      <%= link_to "Skip", winnow_index_url, class: "btn btn-outline-secondary submit", style: "float: left" %>
       <button type="submit" class="btn btn-outline-info submit">Save</button>
     <% end %>
   </div>
