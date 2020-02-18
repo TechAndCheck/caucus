@@ -94,3 +94,6 @@ gem "animate-rails", git: "https://github.com/Verseth/animate-rails.git"
 
 # Mailgun for sending password recovery emails
 gem "mailgun-ruby"
+
+# For finding similar categories for suggestions
+gem "pg_search"
