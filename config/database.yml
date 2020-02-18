@@ -24,6 +24,9 @@ default: &default
 development:
   <<: *default
   database: caucus_development
+  host: <%= Figaro.env.DATABASE_HOST %>
+  username: <%= Figaro.env.DATABASE_USERNAME %>
+  password: <%= Figaro.env.DATABASE_PASSWORD %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
