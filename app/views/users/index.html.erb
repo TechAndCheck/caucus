@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-md-2">
+      <%= image_tag current_user.avatar.variant(resize_to_limit: [100, 100]) if current_user.avatar.attached? %>
+    </div>
+    <div class="col-sm-12 col-md-10">
+      <%= current_user.email %>
+    </div>
+  </div>
+</div>
+<div class="container">
+
+</div>

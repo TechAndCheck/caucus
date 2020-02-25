@@ -11,6 +11,7 @@ class UserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     email: Field::String,
     password: Field::Password,
+    avatar: Field::ActiveStorage.with_options({show_preview_size:  [50, 50]}),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     roles: HasManyRolesField,
@@ -32,6 +33,7 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   id
   email
+  avatar
   roles
   created_at
   updated_at
