@@ -4,7 +4,7 @@
       <%= image_tag current_user.avatar.variant(resize_to_limit: [100, 100]) if current_user.avatar.attached? %>
     </div>
     <div class="col-sm-12 col-md-10">
-      <%= current_user.email %>
+      <h2><%= current_user.email %></h2>
     </div>
   </div>
 </div>
