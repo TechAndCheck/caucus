@@ -33,3 +33,4 @@ en:
   hello: "Hello world"
   approve: "Approve"
   reject: "Reject"
+  export: "Export"
