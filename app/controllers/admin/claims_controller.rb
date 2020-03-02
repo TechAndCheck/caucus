@@ -9,7 +9,8 @@ module Admin
     # end
 
     def export
-      exporter = CsvBinaryMlExporter.new({ claims: Claim.all, categories: Category.all })
+      # Only export claims with at least one category.
+      exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories), categories: Category.all })
       csv = exporter.process
 
       send_data csv
