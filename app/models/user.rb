@@ -4,10 +4,14 @@ class User < ApplicationRecord
   has_many :category_suggestions
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+  # :confirmable, :lockable, :timeoutable, and :omniauthable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   after_create :assign_default_role
+
+  def is_first_login?
+    sign_in_count === 1
+  end
 
 private
 
