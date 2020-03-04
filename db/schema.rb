@@ -78,11 +78,6 @@ ActiveRecord::Schema.define(version: 2020_03_04_045551) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-<<<<<<< HEAD
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
-=======
->>>>>>> 9b31e63d0617fdeac7b7d5213885a2a8024e2322
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
