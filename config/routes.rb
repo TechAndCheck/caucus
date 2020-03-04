@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   namespace :admin do
     # Add dashboard for your models here
     resources :categories
+
+    get "/claims/export", to: "claims#export", as: :claim_export
     resources :claims
+
     resources :users
     resources :roles, only: [:index, :show]
     resources :category_suggestions do

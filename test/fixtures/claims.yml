@@ -12,6 +12,7 @@ one:
   date: "2020-10-20"
   publisher_name: "The Sample Times"
   fact_stream_id: "77cecfa6-a5e4-4438-b144-9c13379008ac"
+  categories: one, two
 
 two:
   statement: "Test Claim 2"
@@ -20,3 +21,4 @@ two:
   date: "2020-10-21"
   publisher_name: "The Sample Times"
   fact_stream_id: "77cecfa6-a5e4-4438-b144-9c13379008ad"
+  categories: one
