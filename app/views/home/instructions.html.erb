@@ -1,0 +1,17 @@
+<div style="padding-top:50px;padding-bottom:100px">
+  <h4>What am I doing here?</h4>
+  <p>Simply put, you are teaching machines to “think” the way we want them to.</p>
+  <p>Caucus is a simple system for categorizing factual claims made by politicians and other public figures. We’re doing this to help machines learn how to match what a politician says today to similar things they or others have said in the past.</p>
+  <h4>How do I help?</h4>
+  <p>When you get started in Caucus, you will see a claim, as well as the person who said it, the date and the location. You then assign relevant categories to that claim by tapping the button with the category’s name. So for the claim “I opposed the Iraq War,” you would assign categories like “War,” “Iraq,” “Iraq War,” etc. Use the “Filter” field to quickly find the category you’re thinking of. If you can’t find a category that seems relevant, you can use the “Category Suggestion” field to suggest it. The suggestion will then show up in blue, and after submission, an admin will review it.</p>
+  <h4>Tips for helping a machine think:</h4>
+  <ol>
+    <li>More is better. Assign as many categories per claim as are relevant and suggest additional categories if you can.</li>
+    <li>Make sure to think in terms of big, general categories — like “War” — as well as specific ones — like “Syria.” If you can get more specific, that’s great — like “Aleppo.”</li>
+    <li>If a claim is about a person, tag that person as a category. But don’t tag the speaker of a claim unless what they’re saying is about them personally. For example, Donald Trump’s tweet, “I was the person who saved Pre-Existing Conditions in your healthcare” should be tagged with “Donald Trump,” as well as “Health Care” and other relevant categories. But Trump saying, “Earnings for the bottom 10% are rising faster than earnings for the top 10%” would not have “Donald Trump” tagged as a category.</li>
+    <li>Don’t hesitate to suggest categories! We’re beginning with a relatively small list and we expect to need many more in the system. Even if you think a category might not apply to multiple claims, if it’s relevant, suggest it. We can always ignore categories later, but going back through claims to reassign categories is much more difficult.</li>
+    <li>If you’re suggesting people as categories, make sure to use their full names: “William Shakespeare” vs “Shakespeare.”</li>
+    <li>Don’t be afraid to suggest the same category for multiple claims. It can take us a bit of time to approve suggestions, but we can make sure it’s applied to all claims you tag.</li>
+  </ol>
+  <%= link_to "Get Started", winnow_index_path, class: "btn btn-info btn-lg", data: { turbolinks: "false" } %>
+</div>

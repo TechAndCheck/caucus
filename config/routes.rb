@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "/instructions", to: "home#instructions", as: :instructions
+
   get "/winnow", to: "winnow#index", as: :winnow_index
   patch "/winnow", to: "winnow#submit", as: :winnow_submit
 
