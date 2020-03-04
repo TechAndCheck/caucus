@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_220348) do
+ActiveRecord::Schema.define(version: 2020_03_04_045551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 2020_02_18_220348) do
     t.string "name"
     t.bigint "user_id"
     t.bigint "claim_id"
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "category_id"
     t.integer "status", default: 0
     t.index ["category_id"], name: "index_category_suggestions_on_category_id"
     t.index ["claim_id"], name: "index_category_suggestions_on_claim_id"
@@ -75,6 +75,9 @@ ActiveRecord::Schema.define(version: 2020_02_18_220348) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
