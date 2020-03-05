@@ -32,6 +32,13 @@ private
   end
 
   def assign_avatar
-    self.avatar.attach(io: File.open("app/assets/images/avatars-monsters/001-monster-27.png"), filename: "001-monster-27.png", content_type: "image/png")
+    avatars = Dir.entries("app/assets/images/avatars-monsters")
+    random_index = rand(avatars.count)
+    avatar_file_name = avatars[random_index]
+    self.avatar.attach(
+      io: File.open("app/assets/images/avatars-monsters/#{avatar_file_name}"),
+      filename: avatar_file_name,
+      content_type: "image/png"
+    )
   end
 end
