@@ -383,7 +383,7 @@ DEPENDENCIES
   mailgun-ruby
   pg (>= 0.18, < 2.0)
   pg_search
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.0.2, >= 6.0.2.1)
   rolify
   sassc-rails

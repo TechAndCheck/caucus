@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 2020_03_05_165140) do
     t.string "name"
     t.bigint "user_id"
     t.bigint "claim_id"
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "category_id"
     t.integer "status", default: 0
     t.index ["category_id"], name: "index_category_suggestions_on_category_id"
     t.index ["claim_id"], name: "index_category_suggestions_on_claim_id"

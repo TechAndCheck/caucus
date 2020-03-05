@@ -15,6 +15,9 @@
     <%= link_to "Admin", admin_categories_path, class: "nav-link" %>
   </div>
   <% end %>
+
+  <%= link_to("Instructions", instructions_path, class: "nav-link") %>
+
   <div class="navbar-nav dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <%= current_user.email %>
