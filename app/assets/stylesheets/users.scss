@@ -1,3 +1,51 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.profile-container {
+  margin-top: 20px;
+  width: 60%;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.profile-image-holder {
+  margin-bottom: 20px;
+}
+
+.profile-stats {
+  height: 100px;
+  text-align: center;
+}
+
+.profile-manage-form {
+  margin-top: 20px;
+  margin-bottom: 100px;
+
+  input[type="submit"] {
+    float: right;
+  }
+
+  input {
+    margin-top: 10px;
+  }
+
+  .card {
+    margin-top: 20px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .profile-container {
+    width: auto;
+  }
+
+  .profile-image-holder {
+    text-align: center;
+  }
+
+  .profile-user-info {
+    text-align: center;
+  }
+}

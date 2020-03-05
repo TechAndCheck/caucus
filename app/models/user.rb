@@ -12,6 +12,8 @@ class User < ApplicationRecord
   before_create :assign_avatar
   after_create :assign_default_role
 
+  validates :name, presence: true
+
 private
 
   def assign_default_role

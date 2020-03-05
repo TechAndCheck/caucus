@@ -5,12 +5,21 @@ class UsersController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    current_user.update(user_params)
+    if current_user.valid?
+      flash[:success] = "Successfully Updated Your Profile"
+    else
+      flash[:error] = current_user.errors.messages.to_s
+    end
+
+    redirect_to user_index_path(current_user)
+  end
 
 private
 
   def user_params
     params.require(:user).
-      permit(:email, :password, :password_confirmation)
+      permit(:email, :name, :password, :password_confirmation)
   end
 end
