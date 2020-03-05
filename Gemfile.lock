@@ -208,7 +208,7 @@ GEM
       activesupport (>= 5.2)
     popper_js (1.16.0)
     public_suffix (4.0.3)
-    puma (4.3.1)
+    puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
     rack-protection (2.0.8.1)
@@ -348,7 +348,7 @@ DEPENDENCIES
   mailgun-ruby
   pg (>= 0.18, < 2.0)
   pg_search
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.0.2, >= 6.0.2.1)
   rolify
   sassc-rails
