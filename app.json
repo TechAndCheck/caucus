@@ -39,6 +39,29 @@
     "MALLOC_ARENA_MAX": {
       "description": "Recommended to be set to '2' to manage Sidekiq's memory usage.",
       "required": false
+    },
+    "FACT_STREAM_BASE_URI": {
+      "description": "URL for FactStream instance to import claims from.",
+      "value": "https://www.example.com",
+      "required": true
+    },
+    "MAILGUN_API_KEY": {
+      "description": "A Mailgun API key for user email management.",
+      "value": "XXXXXXX",
+      "required": true
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "An AWS Access Key Id for an IAM user",
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "An AWS Secret Access Key for an IAM user",
+      "required": true
+    },
+    "AWS_REGION": {
+      "description": "An AWS region",
+      "default": "us-east-1",
+      "required": true
     }
   },
   "formation": {
