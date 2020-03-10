@@ -6,7 +6,7 @@
   },
   "addons": [
     "scheduler",
-    "heroku-redis",
+    "heroku-redis"
   ],
   "env": {
     "HEROKU_APP_NAME": {
