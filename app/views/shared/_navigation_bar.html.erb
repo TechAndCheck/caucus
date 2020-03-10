@@ -5,34 +5,34 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarToggler" style="justify-content: right;">
-  <% if user_signed_in? %>
-  <div class="navbar-nav mr-1">
-    <%= image_tag current_user.avatar.variant(resize_to_limit: [25, 25]) if current_user.avatar.attached? %>
-  </div>
-
-  <% if current_user.has_role?(:admin) %>
-  <div class="navbar-nav mr-1">
-    <%= link_to "Admin", admin_categories_path, class: "nav-link" %>
-  </div>
-  <% end %>
-
-  <div class="navbar-nav mr-1">
-    <%= link_to("Instructions", instructions_path, class: "nav-link") %>
-  </div>
-
-  <div class="navbar-nav dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= current_user.email %>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      <%= link_to "Profile", user_index_path(current_user), class: "dropdown-item" %>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+    <% if user_signed_in? %>
+    <div class="navbar-nav mr-1">
+      <%= image_tag current_user.avatar.variant(resize_to_limit: [25, 25]) if current_user.avatar.attached? %>
     </div>
-  </div>
-  <% else %>
-  <div class="navbar-nav">
-    <%= link_to("Login", new_user_session_path, class: "nav-link") %>
-  </div>
-  <% end %>
+
+    <% if current_user.has_role?(:admin) %>
+    <div class="navbar-nav mr-1">
+      <%= link_to "Admin", admin_categories_path, class: "nav-link" %>
+    </div>
+    <% end %>
+
+    <div class="navbar-nav mr-1">
+      <%= link_to("Instructions", instructions_path, class: "nav-link") %>
+    </div>
+
+    <div class="navbar-nav dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= current_user.email %>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <%= link_to "Profile", user_index_path(current_user), class: "dropdown-item" %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+      </div>
+    </div>
+    <% else %>
+    <div class="navbar-nav">
+      <%= link_to("Login", new_user_session_path, class: "nav-link") %>
+    </div>
+    <% end %>
   </div>
 </nav>

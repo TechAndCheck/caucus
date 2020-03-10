@@ -9,7 +9,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  before_create :assign_avatar
+  after_create :assign_avatar
   after_create :assign_default_role
 
   validates :name, presence: true
@@ -32,13 +32,14 @@ private
   end
 
   def assign_avatar
-    avatars = Dir.entries("app/assets/images/avatars-monsters")
-    random_index = rand(avatars.count)
+    avatars = Dir.entries "app/assets/images/avatars-monsters"
+    random_index = rand avatars.count
     avatar_file_name = avatars[random_index]
+    extension = File.extname avatar_file_name
     self.avatar.attach(
       io: File.open("app/assets/images/avatars-monsters/#{avatar_file_name}"),
       filename: avatar_file_name,
-      content_type: "image/png"
+      content_type: Mime::Type.lookup_by_extension(extension)
     )
   end
 end

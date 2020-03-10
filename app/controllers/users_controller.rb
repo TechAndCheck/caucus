@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def update
     current_user.update(user_params)
     if current_user.valid?
-      flash[:success] = "Successfully Updated Your Profile"
+      flash[:success] = "Successfully updated your profile."
     else
       flash[:error] = current_user.errors.messages.to_s
     end

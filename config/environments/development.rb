@@ -29,9 +29,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Change to :amazon to test S3 storage
   config.active_storage.service = :local
-  # Sometimes we want to test amazon
-  # config.active_storage.service = :amazon
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

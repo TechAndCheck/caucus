@@ -6,13 +6,14 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 amazon:
   service: S3
   access_key_id: <%= Figaro.env.AWS_ENV_ACCESS_KEY_ID %>
   secret_access_key: <%= Figaro.env.AWS_SECRET_ACCESS_KEY %>
   region: <%= Figaro.env.AWS_REGION %>
-  bucket: caucus_<%= Rails.env %>
+  bucket: caucus-<%= (Hash["production", "prod", "development", "dev", "test", "ci"])[Rails.env] %>
+# The above bucket is to shoehorn in the titles to the S3 buckets we've created
+# So the buckets are "caucus-prod" "caucus-ci" "caucus-dev"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
@@ -21,7 +22,6 @@ amazon:
 #   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
 #   bucket: your_own_bucket
 
-# Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
 #   service: AzureStorage
 #   storage_account_name: your_account_name
