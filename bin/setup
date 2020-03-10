@@ -33,6 +33,8 @@ FileUtils.chdir APP_ROOT do
     # database, which is probably not what you want.
     system! 'pg_dump -Fc $PRODUCTION_DATABASE_URL | pg_restore --clean --no-owner --no-acl -n public -d $DATABASE_URL'
     puts "\n== Done duplicating =="
+    puts "\n== Migrating any new changes =="
+    system! 'bin/rails db:migrate'
   else
     puts "\n== Preparing database =="
     system! 'bin/rails db:setup'
