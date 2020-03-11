@@ -25,6 +25,7 @@ FileUtils.chdir APP_ROOT do
   #   FileUtils.cp 'config/database.yml.sample', 'config/database.yml'
   # end
 
+  puts "== Checking if production url exists =="
   # We can't use helpers here so we have to explicitly check the environmental variable
   unless ENV["PRODUCTION_DATABASE_URL"].nil?
     puts "\n== Duplicating database from production =="
