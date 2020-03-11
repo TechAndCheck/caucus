@@ -1,7 +1,7 @@
 # This migration comes from active_storage (originally 20170806125915)
 class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
   def change
-    create_table :active_storage_blobs, if_exists: false do |t|
+    create_table :active_storage_blobs do |t|
       t.string   :key,        null: false
       t.string   :filename,   null: false
       t.string   :content_type
@@ -11,7 +11,7 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
       t.datetime :created_at, null: false
 
       t.index [ :key ], unique: true
-    end
+    end unless ActiveRecord::Base.connection.table_exists? :active_storage_blobs
 
     create_table :active_storage_attachments, if_exists: false do |t|
       t.string     :name,     null: false
@@ -22,6 +22,6 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
 
       t.index [ :record_type, :record_id, :name, :blob_id ], name: "index_active_storage_attachments_uniqueness", unique: true
       t.foreign_key :active_storage_blobs, column: :blob_id
-    end
+    end unless ActiveRecord::Base.connection.table_exists? :active_storage_attachments
   end
 end
