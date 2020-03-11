@@ -32,7 +32,7 @@ FileUtils.chdir APP_ROOT do
     # you want to dump to. Otherwise, it'll dump into a database with the same name as the production
     # database, which is probably not what you want.
     system! 'pg_dump -Fc $PRODUCTION_DATABASE_URL | pg_restore --clean --no-owner --no-acl -n public -d $DATABASE_URL'
-    puts "\n== Done duplicating =="
+    puts "\n== Done duplicating 🔥 =="
   else
     puts "\n== Preparing database =="
     system! 'bin/rails db:setup'
