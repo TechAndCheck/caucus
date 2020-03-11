@@ -28,7 +28,7 @@ FileUtils.chdir APP_ROOT do
   # We can't use helpers here so we have to explicitly check the environmental variable
   unless ENV["PRODUCTION_DATABASE_URL"].nil?
     puts "\n== Creating Database =="
-    system! 'bin/rails db:create'
+    system! 'bin/rails db:setup'
 
     puts "\n== Duplicating database from production =="
     # A quick note if you're doing this manually, make sure that $DATABASE_URL has the final database
