@@ -27,17 +27,12 @@ FileUtils.chdir APP_ROOT do
 
   # We can't use helpers here so we have to explicitly check the environmental variable
   unless ENV["PRODUCTION_DATABASE_URL"].nil?
-    puts "\n== Creating Database =="
-    system! 'bin/rails db:setup'
-
     puts "\n== Duplicating database from production =="
     # A quick note if you're doing this manually, make sure that $DATABASE_URL has the final database
     # you want to dump to. Otherwise, it'll dump into a database with the same name as the production
     # database, which is probably not what you want.
     system! 'pg_dump -Fc $PRODUCTION_DATABASE_URL | pg_restore --clean --no-owner --no-acl -n public -d $DATABASE_URL'
     puts "\n== Done duplicating =="
-    puts "\n== Migrating any new changes =="
-    system! 'bin/rails db:migrate'
   else
     puts "\n== Preparing database =="
     system! 'bin/rails db:setup'
