@@ -6,12 +6,15 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+# Here we set the S3 bucket to the appropriate style, unless we override it in the ENV variables.
+<% s3_bucket = Figaro.env.AWS_S3_BUCKET.nil? ? "caucus-#{(Hash["production", "prod", "development", "dev", "test", "ci"])[Rails.env]}" : Figaro.env.AWS_S3_BUCKET %>
+
 amazon:
   service: S3
   access_key_id: <%= Figaro.env.AWS_ENV_ACCESS_KEY_ID %>
   secret_access_key: <%= Figaro.env.AWS_SECRET_ACCESS_KEY %>
   region: <%= Figaro.env.AWS_REGION %>
-  bucket: caucus-<%= (Hash["production", "prod", "development", "dev", "test", "ci"])[Rails.env] %>
+  bucket: <%= s3_bucket %>
 # The above bucket is to shoehorn in the titles to the S3 buckets we've created
 # So the buckets are "caucus-prod" "caucus-ci" "caucus-dev"
 
