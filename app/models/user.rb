@@ -35,7 +35,10 @@ private
     avatars = Dir.entries "app/assets/images/avatars-monsters"
     random_index = rand avatars.count
     avatar_file_name = avatars[random_index]
-    extension = File.extname avatar_file_name
+
+    # Extname outputs like ".png" Mime::Type expects "png", so we'll just substring it
+    extension = File.extname(avatar_file_name)[1..-1]
+
     self.avatar.attach(
       io: File.open("app/assets/images/avatars-monsters/#{avatar_file_name}"),
       filename: avatar_file_name,
