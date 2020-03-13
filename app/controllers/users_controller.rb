@@ -10,8 +10,13 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
-    if current_user.valid?
+    if @user.valid?
       flash[:success] = "Successfully updated your profile."
+
+      # If a user changes their password Devise auto logs them out, that's dumb
+      # Instead, just log them back in
+      sign_in current_user, bypass: true
+
       redirect_to user_index_path(@user)
       return
     else
