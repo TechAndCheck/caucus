@@ -12,3 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules")
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Fixes an issue with Administrate when running in development. It's odd but since the CSS isn't
+# being modified for us in that part of the app we can just precompile.
+Rails.application.config.assets.precompile += ["administrate/application.css"] if Rails.env.development?

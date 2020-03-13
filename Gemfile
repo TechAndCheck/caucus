@@ -79,6 +79,8 @@ gem "figaro"
 
 # Easy administration dashboards
 gem "administrate", git: "https://github.com/thoughtbot/administrate.git", branch: "master"
+# Adds ActiveStorage support for Administrate
+gem "administrate-field-active_storage", git: "https://github.com/Dreamersoul/administrate-field-active_storage", branch: "master"
 
 # We want to limit who can get in
 gem "devise"
@@ -97,3 +99,12 @@ gem "mailgun-ruby"
 
 # For finding similar categories for suggestions
 gem "pg_search"
+
+# We need s3 for saving our avatars
+gem "aws-sdk-s3", require: false
+
+# ImageMagick is needed for ActiveStorage
+gem "image_processing"
+
+# Because turbolinks doesn't support the `render` method correctly
+gem "turbolinks_render"

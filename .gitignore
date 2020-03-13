@@ -34,5 +34,5 @@ yarn-debug.log*
 /config/application.yml
 coverage
 
-# Remove Apple stuff
+# Ignore Apple stuff
 .DS_Store

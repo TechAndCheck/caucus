@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "/winnow", to: "winnow#index", as: :winnow_index
   patch "/winnow", to: "winnow#submit", as: :winnow_submit
 
+  # We set users to user here for prettier and more make-sensy paths
+  resources :users, path: "user", only: [:index, :edit, :update], as: :user
+
   namespace :admin do
     # Add dashboard for your models here
     resources :categories
