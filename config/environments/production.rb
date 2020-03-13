@@ -66,12 +66,14 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: Figaro.env.MAILGUN_PRIVATE_API_KEY,
-    domain: Figaro.env.HOST_NAME
-    # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
-  }
+  # This is a quick fix to shuttle emails to a test instead of to mailgun to fix quickly.
+  # Fix this soon -CG
+  config.action_mailer.delivery_method = :test
+  # config.action_mailer.mailgun_settings = {
+  #   api_key: Figaro.env.MAILGUN_PRIVATE_API_KEY,
+  #   domain: Figaro.env.HOST_NAME
+  #   # api_host: 'api.eu.mailgun.net'  # Uncomment this line for EU region domains
+  # }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
