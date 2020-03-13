@@ -53,3 +53,11 @@
     text-align: center;
   }
 }
+
+// Forms
+
+.field_with_errors {
+  input {
+    border-color: $danger;
+  }
+}

@@ -46,7 +46,7 @@
     <div class="card-body">
       <h5 class="card-title">Edit Your Profile</h5>
       <p class="card-text">
-        <%= form_with(model: current_user) do |f| %>
+        <%= form_with(model: @user) do |f| %>
           <div class="form-group">
             <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
           </div>
@@ -62,7 +62,7 @@
     <div class="card-body">
       <h5 class="card-title">Change Your Password</h5>
       <p class="card-text">
-        <%= form_with(model: current_user) do |f| %>
+        <%= form_with(model: @user) do |f| %>
           <div class="form-group">
             <%= f.password_field :password, class: "form-control", placeholder: "New Password" %>
             <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password" %>

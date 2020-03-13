@@ -9,8 +9,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  after_create :assign_avatar
-  after_create :assign_default_role
+  after_create :assign_avatar, :assign_default_role
 
   validates :name, presence: true
 

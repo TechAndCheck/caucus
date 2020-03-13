@@ -105,3 +105,6 @@ gem "aws-sdk-s3", require: false
 
 # ImageMagick is needed for ActiveStorage
 gem "image_processing"
+
+# Because turbolinks doesn't support the `render` method correctly
+gem "turbolinks_render"

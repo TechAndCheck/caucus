@@ -332,6 +332,9 @@ GEM
       mozaic (~> 2.0)
       railties (>= 5.0)
     turbolinks-source (5.2.0)
+    turbolinks_render (0.9.17)
+      rails (>= 5.2.0)
+      turbolinks-source (~> 5.1)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -394,6 +397,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   turbolinks-animate
+  turbolinks_render
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers

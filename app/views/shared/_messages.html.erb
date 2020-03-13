@@ -1,6 +1,6 @@
 <% if flash[:alert] %>
   <div class="alert alert-dismissible alert-danger" role="alert">
-    <strong>Error:</strong> <%= flash[:alert] %>
+    <strong>Error:</strong> <%= flash[:alert].html_safe %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -9,7 +9,7 @@
 
 <% if flash[:error] %>
   <div class="alert alert-dismissible alert-danger" role="alert">
-    <strong>Error:</strong> <%= flash[:error] %>
+    <strong>Error:</strong> <%= flash[:error].html_safe %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -18,7 +18,7 @@
 
 <% if flash[:success] %>
   <div class="alert alert-dismissible alert-success" role="alert">
-    <strong>Success:</strong> <%= flash[:success] %>
+    <strong>Success:</strong> <%= flash[:success].html_safe %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -27,7 +27,7 @@
 
 <% if flash[:notice] %>
   <div class="alert alert-dismissible alert-success" role="alert">
-    <strong>Success:</strong> <%= flash[:notice] %>
+    <strong>Success:</strong> <%= flash[:notice].html_safe %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

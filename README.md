@@ -25,6 +25,7 @@ it fun for users and annoyingly addictive.
 1. Make sure you're running Ruby 2.7. I like to use [rbenv](https://github.com/rbenv/rbenv) to manage the Ruby versions.
 1. Install the gems `bundle install`
 1. Install javascript requirements `yarn install`
+1. Run `rails db:migrate` to create the initial database
 
 ## Development
 1. Make sure you have a locally running Postgres instance.
@@ -34,7 +35,7 @@ it fun for users and annoyingly addictive.
 1. Visit `localhost:3000` to make sure it's working
 1. Create your first user in the Rails console by starting `rails c`
 1. Create the user `u = User.create({name: "Test User", email: "test@example.com", password: "password123"})`
-1. Assign the user as an admin `u.assign_role :admin`
+1. Assign the user as an admin `u.add_role :admin`
 1. Save again `u.save!`
 1. Exit the console and start the server with `rails s` again and go to `localhost:3000`
 1. Log in with the user created above
