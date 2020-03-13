@@ -3,11 +3,15 @@ class User < ApplicationRecord
 
   has_many :category_suggestions
 
+  has_one_attached :avatar
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
-  after_create :assign_default_role
+  after_create :assign_avatar, :assign_default_role
+
+  validates :name, presence: true
 
   # We use the Devise::Trackable module to track sign-in count and current/last sign-in timestamp.
   # However, we don't want to track IP address, but Trackable tries to, so we have to manually
@@ -24,5 +28,16 @@ private
 
   def assign_default_role
     self.add_role(:user) if self.roles.blank?
+  end
+
+  def assign_avatar
+    avatars = Dir.entries "app/assets/images/avatars-monsters"
+    random_index = rand avatars.count
+    avatar_file_name = avatars[random_index]
+
+    self.avatar.attach(
+      io: File.open("app/assets/images/avatars-monsters/#{avatar_file_name}"),
+      filename: avatar_file_name
+    )
   end
 end

@@ -9,8 +9,10 @@ class UserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    name: Field::String,
     email: Field::String,
     password: Field::Password,
+    avatar: Field::ActiveStorage.with_options({ show_preview_size:  [50, 50] }),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     roles: HasManyRolesField,
@@ -23,6 +25,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
   id
+  name
   email
   roles
   ].freeze
@@ -31,7 +34,9 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
   id
+  name
   email
+  avatar
   roles
   created_at
   updated_at
@@ -41,6 +46,7 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+  name
   email
   password
   roles
@@ -62,6 +68,6 @@ class UserDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(user)
-    "#{user.email}"
+    "#{user.name}"
   end
 end

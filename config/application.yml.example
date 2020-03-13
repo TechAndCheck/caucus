@@ -4,6 +4,25 @@ FACT_STREAM_BASE_URI: "https://www.example.com"
 
 development:
   MAILGUN_API_KEY: "XXXXXXXXXX"
+  AWS_ACCESS_KEY_ID: "XXXXXXXXX"
+  AWS_SECRET_ACCESS_KEY: "XXXXXXXXX"
+  AWS_REGION: "us-east-1"
+  DATABASE_HOST: "localhost"
+  DATABASE_USERNAME: "postgres"
+  DATABASE_PASSWORD: "postgres"
+
+test:
+  AWS_ACCESS_KEY_ID: "XXXXXXXXX"
+  AWS_SECRET_ACCESS_KEY: "XXXXXXXXX"
+  AWS_REGION: "us-east-1"
+  DATABASE_HOST: "localhost"
+  DATABASE_USERNAME: "postgres"
+  DATABASE_PASSWORD: "postgres"
+
 
 production:
   MAILGUN_API_KEY: "XXXXXXXXXX"
+  AWS_ACCESS_KEY_ID: "XXXXXXXXX"
+  AWS_SECRET_ACCESS_KEY: "XXXXXXXXX"
+  AWS_REGION: "us-east-1"
+  DATABASE_URL: "postgres://username:password@host:5432/db_name"
