@@ -108,3 +108,6 @@ gem "image_processing"
 
 # Because turbolinks doesn't support the `render` method correctly
 gem "turbolinks_render"
+
+# Sentry.io tracks errors and bugs
+gem "sentry-raven"
