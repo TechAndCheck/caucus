@@ -40,6 +40,18 @@ it fun for users and annoyingly addictive.
 1. Exit the console and start the server with `rails s` again and go to `localhost:3000`
 1. Log in with the user created above
 
+### Optional Development Steps
+
+#### Suppress Ruby 2.7/Rails 6 Warnings
+- Rails 6.0.x is not fully up on Ruby 2.7, so there's a bunch of errors. They don't hurt anything but do
+  muck up the entire logs pretty badly. If you want to also suppress them in dev mode (you do), and use `rbenv` to manage your
+  Ruby versions, you can install the `rbenv-vars` plugin, which will automatically apply the `.rbenv-vars`
+  options to any Ruby commands in this folder.
+
+  Install it by running `git clone https://github.com/rbenv/rbenv-vars.git $(rbenv root)/plugins/rbenv-vars`
+  (or if you're using Fish `git clone https://github.com/rbenv/rbenv-vars.git (rbenv root)/plugins/rbenv-vars`).
+  It should just work then.
+
 ## Notes
  - Uses https://bootswatch.com/journal/ for the theme
 
