@@ -22,5 +22,13 @@ module Caucus
     # Jobs break unless this happens. Zeigeist gets the wrong job path and errors haard.
     config.load_defaults "6.0"
     config.autoloader = :classic
+
+    # Initialization for Sentry.io, if the environment variable SENTRY_DSN exists, otherwise it is ignored
+    # If using Heroku make sure to run `heroku labs:enable runtime-dyno-metadata -a myapp` to enable release
+    # notifications
+    Raven.configure do |config|
+      config.dsn = ENV["SENTRY_DSN"]
+      config.async = lambda { |event| SentryJob.perform_later(event) }
+    end if ENV.key?("SENTRY_DSN")
   end
 end

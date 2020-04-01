@@ -61,6 +61,10 @@
       "description": "An AWS region",
       "default": "us-east-1",
       "required": true
+    },
+    "SENTRY_DSN": {
+      "description": "Sentry.io DSN, if set Sentry.io reporting is used, if it's not set Sentry.io is ignored.",
+      "required": false
     }
   },
   "formation": {
