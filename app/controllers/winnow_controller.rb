@@ -3,7 +3,7 @@ class WinnowController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @claim = new_claim
+    @claim = winnowable_claim
     # We only want categories not already assigned to the claim
     @categories = Category.all.order("name ASC") - @claim.categories
     turbolinks_animate "slideInRight"
@@ -42,9 +42,9 @@ private
     id_string.split(seperator)
   end
 
-  # Get a new claim to show to a user
-  # This could get interesting with locks and such so it's a seperate function
-  def new_claim
+  # Choose and return a claim that we want the user to winnow. (This could get interesting with
+  # locks and such so it's a separate method.)
+  def winnowable_claim
     claim = Claim.where(checked: false).order("RANDOM()").first
     claim
   end
