@@ -26,8 +26,8 @@
 <% end %>
 
 <% if flash[:notice] %>
-  <div class="alert alert-dismissible alert-success" role="alert">
-    <strong>Success:</strong> <%= flash[:notice].html_safe %>
+  <div class="alert alert-dismissible alert-info" role="alert">
+    <%= flash[:notice].html_safe %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -1,9 +1,9 @@
 class WinnowController < ApplicationController
-  before_action :verify_claim, except: [:index]
   before_action :authenticate_user!
+  before_action :verify_winnowable_claim, only: [:index]
+  before_action :verify_claim, except: [:index]
 
   def index
-    @claim = new_claim
     # We only want categories not already assigned to the claim
     @categories = Category.all.order("name ASC") - @claim.categories
     turbolinks_animate "slideInRight"
@@ -33,6 +33,13 @@ private
     render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
   end
 
+  def verify_winnowable_claim
+    @claim = winnowable_claim
+    if @claim.nil?
+      redirect_to root_path, flash: { notice: "Looks like there are no claims to winnow. Go do something else fun!" }
+    end
+  end
+
   def claim_params
     params.require(:claim).permit(:id, :categories, :suggestions)
   end
@@ -42,9 +49,9 @@ private
     id_string.split(seperator)
   end
 
-  # Get a new claim to show to a user
-  # This could get interesting with locks and such so it's a seperate function
-  def new_claim
+  # Choose and return a claim that we want the user to winnow. (This could get interesting with
+  # locks and such so it's a separate method.)
+  def winnowable_claim
     claim = Claim.where(checked: false).order("RANDOM()").first
     claim
   end
