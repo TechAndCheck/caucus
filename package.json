@@ -16,7 +16,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "flatpickr": "^4.6.3",
     "fuzzyset.js": "^0.0.91",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
