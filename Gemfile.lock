@@ -389,7 +389,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pg_search
   puma (~> 4.3)
-  rails (~> 6.0.2, >= 6.0.2.1)
+  rails (~> 6.0.3, >= 6.0.3)
   rolify
   sassc-rails
   selenium-webdriver
