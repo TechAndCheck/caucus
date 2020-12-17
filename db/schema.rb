@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_165140) do
+ActiveRecord::Schema.define(version: 2020_12_16_215123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_03_05_165140) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "categories_claims", id: false, force: :cascade do |t|
+  create_table "categories_claims", id: :serial, force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "claim_id", null: false
     t.index ["category_id"], name: "index_categories_claims_on_category_id"

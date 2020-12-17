@@ -42,6 +42,12 @@ it fun for users and annoyingly addictive.
 
 ### Optional Development Steps
 
+#### Import From FactStream
+Note: This should be a rake task really
+1. Ensure that `FACT_STREAM_BASE_URI` in `application.yml` is properly set
+1. Enter the Rails console `rails c`
+1. Run `FactStreamClient.new.all_fact_checks(true)` in the console.
+
 #### Suppress Ruby 2.7/Rails 6 Warnings
 - Rails 6.0.x is not fully up on Ruby 2.7, so there's a bunch of errors. They don't hurt anything but do
   muck up the entire logs pretty badly. If you want to also suppress them in dev mode (you do), and use `rbenv` to manage your

@@ -10,10 +10,11 @@ module Admin
 
     def export
       # Only export claims with at least one category.
-      exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories), categories: Category.all })
-      csv = exporter.process
+      claims = Claim.joins(:categories).distinct.includes([:categories, :categories_claims])
+      exporter = CsvBinaryMlExporter.new({ claims: claims, categories: Category.all })
+      csv = exporter.process(totals: true)
 
-      send_data csv
+      send_data csv, filename: 'export.csv'
     end
 
     # Override this method to specify custom lookup behavior.
