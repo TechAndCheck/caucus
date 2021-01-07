@@ -50,5 +50,11 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def import_show
+    end
+
+    def import_submit
+    end
   end
 end
