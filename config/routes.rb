@@ -16,12 +16,11 @@ Rails.application.routes.draw do
     # Add dashboard for your models here
     resources :categories
 
-    resources :claims do
-      get :export, to: "export", as: :export
+    get "/claims/export", to: "claims#export", as: :claim_export
+    get "/claims/import", to: "claims#import_show", as: :claim_import
+    post "/claims/import", to: "claims#import_submit", as: :claim_import_submit
 
-      get :import, to: "import_show", as: :import
-      post :import, to: "import_submit", as: :import_submit
-    end
+    resources :claims
 
     resources :users
     resources :roles, only: [:index, :show]

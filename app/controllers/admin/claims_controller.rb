@@ -10,11 +10,10 @@ module Admin
 
     def export
       # Only export claims with at least one category.
-      claims = Claim.joins(:categories).distinct.includes([:categories, :categories_claims])
-      exporter = CsvBinaryMlExporter.new({ claims: claims, categories: Category.all })
-      csv = exporter.process(totals: true)
+      exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories), categories: Category.all })
+      csv = exporter.process
 
-      send_data csv, filename: 'export.csv'
+      send_data csv
     end
 
     # Override this method to specify custom lookup behavior.
@@ -56,6 +55,12 @@ module Admin
     end
 
     def import_submit
+      # Save the file
+      new_file_path = "./tmp/#{SecureRandom.uuid}-#{params[:file].original_filename}"
+      FileUtils.cp(params[:file].to_path, new_file_path)
+
+      job = ProcessImportJob.set(wait: 2.seconds).perform_later(new_file_path)
+      render json: {'jobId': job.job_id}
     end
   end
 end
