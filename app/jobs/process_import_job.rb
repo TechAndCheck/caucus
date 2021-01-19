@@ -31,5 +31,7 @@ class ProcessImportJob < ApplicationJob
       total: number_of_lines,
       completed: number_of_lines
     })
+
+    File.delete(file_path) if File.exists?(file_path)
   end
 end
