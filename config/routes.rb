@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :categories
 
     get "/claims/export", to: "claims#export", as: :claim_export
+    get "/claims/import", to: "claims#import_show", as: :claim_import
+    post "/claims/import", to: "claims#import_submit", as: :claim_import_submit
+
     resources :claims
 
     resources :users

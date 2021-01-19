@@ -24,6 +24,7 @@ By default, it renders:
   <%= render "stylesheet" %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if defined?(csp_meta_tag) %>
+  <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
   <%= render "icons" %>
@@ -37,6 +38,7 @@ By default, it renders:
     </main>
   </div>
 
-  <%= render "javascript" %>
+  <%= render "admin/application/javascript" %>
+
 </body>
 </html>
