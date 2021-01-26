@@ -24,7 +24,7 @@ class CsvBinaryMlExporter < Exporter
 
       # Go through each claim, create an array big enough with 0, pull the categories, lookup the index, and insert 1
       categories_count = @categories.count
-      @objects.each do |object|
+      @objects.find_each do |object|
         binary_array = create_binary_array(object, categories_count, category_look_up)
         csv << [object.statement, object.id].concat(binary_array)
       end unless @objects.nil?

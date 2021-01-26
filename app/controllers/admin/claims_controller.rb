@@ -15,7 +15,10 @@ module Admin
       exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories), categories: Category.all })
       csv = exporter.process
 
-      send_data csv
+      # send_data csv
+      respond_to do |format|
+        format.csv csv
+      end
     end
 
     # Override this method to specify custom lookup behavior.
