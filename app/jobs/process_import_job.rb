@@ -39,7 +39,8 @@ class ProcessImportJob < ApplicationJob
         begin
           claim.save!
         rescue Exception => e
-          byebug
+          logger.debug("Exception when saving claim #{claim}")
+          logger.debug("#{e}")
           # Eat it and move forward
         end
 
@@ -56,7 +57,7 @@ class ProcessImportJob < ApplicationJob
         completed: number_of_lines
       })
     rescue Exception => e
-      byebug
+      logger.debug("Exception: #{e}")
     ensure
       begin
         # Handle the temp file
