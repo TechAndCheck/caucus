@@ -1,3 +1,5 @@
+require 'aws-sdk-s3'
+
 module Admin
   class ClaimsController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
@@ -55,12 +57,40 @@ module Admin
     end
 
     def import_submit
-      # Save the file
-      new_file_path = "./tmp/#{SecureRandom.uuid}-#{params[:file].original_filename}"
-      FileUtils.cp(params[:file].to_path, new_file_path)
+      # Save the file to a temp file on the system if we're in dev.
+      # If we're in prod or `UPLOAD_IMPORT_TO_S3` is set to 'true' we upload to S3 instead
+      # This is done because, if we're in Heroku, the ProcessImportJob runs on a different container
+      # so the temp file won't move over. We could just send the data to the job, but if it's a big
+      # file that'd gum up the works something horrible.
 
-      job = ProcessImportJob.set(wait: 2.seconds).perform_later(new_file_path)
+      redirect_back if params[:file].nil?
+
+      uuid = SecureRandom.uuid # We use a uuid in two place, why not just make one?
+      job = nil
+      if Rails.env.production? || Figaro.env.UPLOAD_IMPORT_TO_S3.downcase == 'true'
+        file_name = uuid
+        object_key = upload_file(file_name, params[:file].path)
+        job = ProcessImportJob.set(wait: 10.seconds).perform_later(aws_object_key: object_key)
+      else
+        new_file_path = "./tmp/#{uuid}-#{params[:file].original_filename}"
+        FileUtils.cp(params[:file].to_path, new_file_path)
+
+        job = ProcessImportJob.set(wait: 2.seconds).perform_later(file_path: new_file_path)
+      end
+
       render json: {'jobId': job.job_id}
+    end
+
+  private
+
+    def upload_file(object_key, file_path)
+      s3 = Aws::S3::Resource.new(region: Figaro.env.AWS_REGION)
+
+      object = s3.bucket(Figaro.env.AWS_IMPORT_BUCKET).object(object_key)
+      object.upload_file(file_path)
+      return object.key
+    rescue StandardError => e
+      raise "Error uploading object for import: #{e.message}"
     end
   end
 end

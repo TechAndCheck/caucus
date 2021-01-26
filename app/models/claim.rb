@@ -8,7 +8,7 @@ class Claim < ApplicationRecord
   has_and_belongs_to_many :categories
   has_many :category_suggestions
 
-  validates :fact_stream_id, uniqueness: true
+  validates :fact_stream_id, uniqueness: true, allow_nil: true
 
   before_save :deduplicate_categories
 

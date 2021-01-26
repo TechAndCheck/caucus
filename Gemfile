@@ -114,3 +114,6 @@ gem "turbolinks_render"
 
 # Sentry.io tracks errors and bugs
 gem "sentry-raven"
+
+# Shrine allows better uploading without needing a model like ActiveStorage
+gem "shrine", "~> 3.0"
