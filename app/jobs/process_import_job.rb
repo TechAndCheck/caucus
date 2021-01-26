@@ -16,10 +16,10 @@ class ProcessImportJob < ApplicationJob
         file = File.new(file_path)
       else
         file = Tempfile.new(SecureRandom.uuid)
-        s3.get_object(bucket:Figaro.env.AWS_IMPORT_BUCKET, key:aws_object_key) do |chunk|
+        s3.get_object(bucket:Figaro.env.AWS_S3_BUCKET, key:aws_object_key) do |chunk|
           file.write(chunk)
         end
-        s3.delete_object(bucket:Figaro.env.AWS_IMPORT_BUCKET, key:aws_object_key)
+        s3.delete_object(bucket:Figaro.env.AWS_S3_BUCKET, key:aws_object_key)
       end
 
       number_of_lines = `wc -l #{file.path}`.to_i
