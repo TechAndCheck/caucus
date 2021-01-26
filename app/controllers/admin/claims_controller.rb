@@ -12,12 +12,18 @@ module Admin
 
     def export
       # Only export claims with at least one category.
-      exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories), categories: Category.all })
-      csv = exporter.process
+      exporter = CsvBinaryMlExporter.new({ claims: Claim.joins(:categories).where.not(categories: []).distinct, categories: Category.all })
+      processed = exporter.process(response, headers)
 
       # send_data csv
       respond_to do |format|
-        format.csv csv
+        format.csv do
+          # rubocop:disable Lint/UselessAssignment
+          headers = processed[:headers]
+          response = processed[:response]
+          self.response_body = processed[:enumerator]
+          # rubocop:enable Lint/UselessAssignment
+        end
       end
     end
 
