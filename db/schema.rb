@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_215123) do
+ActiveRecord::Schema.define(version: 2021_01_27_045823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_215123) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "checked", default: false
+    t.integer "categories_count"
   end
 
   create_table "roles", force: :cascade do |t|

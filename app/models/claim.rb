@@ -10,7 +10,13 @@ class Claim < ApplicationRecord
 
   validates :fact_stream_id, uniqueness: true, allow_nil: true
 
-  before_save :deduplicate_categories
+  before_save :deduplicate_categories, :update_categories_count
+
+  # Manage the category claims counter manually because `cache_counter` isn't a great idea for HABTM
+  def update_categories_count(save = false)
+    self.categories_count = self.categories.count
+    self.save! if save == true
+  end
 
 private
 
@@ -18,4 +24,5 @@ private
   def deduplicate_categories
     self.categories = self.categories.uniq
   end
+
 end

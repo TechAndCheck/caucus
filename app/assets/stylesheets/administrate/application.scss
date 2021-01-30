@@ -76,3 +76,23 @@
 }
 
 @import "flatpickr/dist/flatpickr.min";
+
+///////////////////////////////////////
+/// Claim export dropdown
+///////////////////////////////////////
+
+
+.claim--export-dropdown {
+  justify-content: flex-end;
+  align-content: space-around;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dfe0e1;
+  display: none;
+
+  &.open {
+    display: flex;
+  }
+}
+

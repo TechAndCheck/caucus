@@ -2,8 +2,8 @@ require "test_helper"
 
 class ClaimTest < ActiveSupport::TestCase
   test "Claim should only have one version of the claim at a time" do
-    claim = Claim.last
-    category = Category.first
+    claim = claims(:two)
+    category = categories(:one)
 
     # First we add a category and save it
     claim.categories << category
@@ -27,4 +27,42 @@ class ClaimTest < ActiveSupport::TestCase
       Claim.create!({ statement: "Something or other", fact_stream_id: "2986b6f7-38e5-4b72-aa0d-df315378bdfa" })
     end
   end
+
+  test "Claim should have a category counter" do
+    claim = claims(:one)
+    assert 2, claim.categories_count
+  end
+
+  test "Claim's category counter should update correctly on adding a claim" do
+    claim = claims(:one)
+    assert 2, claim.categories_count
+
+    category = claim.categories.first
+    category.claims = []
+    category.save!
+
+    assert 1, claim.categories_count
+  end
+
+  test "Claim's category counter should update correctly when deleting a category" do
+    claim = claims(:one)
+    assert 2, claim.categories_count
+
+    category = claim.categories.first
+    category.destroy!
+
+    assert 1, claim.categories_count
+  end
+
+  test "Claim's category counter should update correctly when adding a category" do
+    claim = claims(:two)
+    assert 1, claim.categories_count
+
+    category = categories(:two)
+    claim.categories << category
+    claim.save!
+
+    assert 2, claim.categories_count
+  end
+
 end

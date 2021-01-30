@@ -8,7 +8,7 @@ function bindDateTimePickers() {
       noCalendar: true,
       altInput: true,
       altFormat: ' h:i:S K',
-      dateFormat: 'H:i:S' // H:i
+      dateFormat: 'H:i:S', // H:i
     })
   });
 
@@ -17,7 +17,7 @@ function bindDateTimePickers() {
       enableTime: true,
       altInput: true,
       altFormat: 'F J (D), Y - h:i:S K',
-      dateFormat: 'Z' // Y-m-d H:i
+      dateFormat: 'Z', // Y-m-d H:i
     })
   })
 }
