@@ -2,6 +2,7 @@ class Category < ApplicationRecord
   has_and_belongs_to_many :claims
   validates :name, uniqueness: true
 
+  before_save :update_claims_count
   after_destroy :update_claims_category_counters
 
   include PgSearch::Model
@@ -13,6 +14,13 @@ class Category < ApplicationRecord
                       dmetaphone: {}
                     },
                     ignoring: :accents
+
+
+  # Manage the claims counter manually because `cache_counter` isn't a great idea for HABTM
+  def update_claims_count(save = false)
+    self.claims_count = self.claims.count
+    self.save! if save == true
+  end
 
 private
 
