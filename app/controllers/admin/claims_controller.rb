@@ -15,9 +15,17 @@ module Admin
       minimum_categories = params["minimum_categories"].blank? ? 0 : params["minimum_categories"].to_i
       # claims = Claim.joins(:categories).where.not(categories: []).where("categories_count > #{minimum_categories}").distinct
       categories = Category.where("claims_count > #{minimum_categories}").distinct
-      categories_sql_list = categories.pluck(:id).map { |category_id| "'#{category_id}'" }
       claim_ids = ActiveRecord::Base.connection.execute(
-        "SELECT DISTINCT categories_claims.claim_id FROM categories_claims WHERE categories_claims.category_id in (#{categories_sql_list.join(", ")})"
+        " SELECT DISTINCT claims.id
+          FROM claims
+          INNER JOIN categories_claims
+          ON claims.id = categories_claims.claim_id
+          WHERE categories_claims.category_id in (
+            SELECT categories.id
+            FROM categories
+            WHERE categories.claims_count > #{params["minimum_categories"]}
+          )
+        "
       ).values.flatten
       claims = Claim.includes([:categories]).where(id: claim_ids).distinct
 
