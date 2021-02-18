@@ -12,7 +12,6 @@ module Admin
 
     def export
       # Only export claims with at least one category.
-      byebug
       minimum_categories = params["minimum_categories"].blank? ? 0 : params["minimum_categories"].to_i
       # claims = Claim.joins(:categories).where.not(categories: []).where("categories_count > #{minimum_categories}").distinct
       categories = Category.where("claims_count > #{minimum_categories}").distinct
