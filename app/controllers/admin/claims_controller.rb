@@ -12,14 +12,19 @@ module Admin
 
     def export
       # Only export claims with at least one category.
+      byebug
       minimum_categories = params["minimum_categories"].blank? ? 0 : params["minimum_categories"].to_i
       # claims = Claim.joins(:categories).where.not(categories: []).where("categories_count > #{minimum_categories}").distinct
-      categories = Category.joins(:claims).where("claims_count > #{minimum_categories}").distinct
-      claims = Claim.includes([:categories]).where(id: categories.pluck(:claim_id)).distinct
+      categories = Category.where("claims_count > #{minimum_categories}").distinct
+      categories_sql_list = categories.pluck(:id).map { |category_id| "'#{category_id}'" }
+      claim_ids = ActiveRecord::Base.connection.execute(
+        "SELECT DISTINCT categories_claims.claim_id FROM categories_claims WHERE categories_claims.category_id in (#{categories_sql_list.join(", ")})"
+      ).values.flatten
+      claims = Claim.includes([:categories]).where(id: claim_ids).distinct
 
       exporter = CsvBinaryMlExporter.new({
         claims: claims,
-        categories: Category.all
+        categories: categories
       })
       processed = exporter.process(response, headers)
 

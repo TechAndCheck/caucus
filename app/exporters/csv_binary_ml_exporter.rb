@@ -63,8 +63,9 @@ private
 
   def create_binary_array(object, categories_count, category_look_up)
     categories_array = Array.new categories_count, 0
-
     object.categories.each do |category|
+      next unless category_look_up.keys.include? category.name
+
       index = category_look_up[category.name]
       categories_array[index] = 1
     end
