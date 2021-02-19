@@ -66,7 +66,6 @@ private
     object.categories.each do |category|
       index = category_look_up[category.name]
       next if index.nil?
-      next if category.claims_count < 50
 
       categories_array[index] = 1
     end
