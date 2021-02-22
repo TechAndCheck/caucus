@@ -13,9 +13,9 @@ class ProcessImportJob < ApplicationJob
 
       file = nil
       unless file_path.nil?
-        file = File.new(file_path, "r:UTF-8")
+        file = File.new(file_path)
       else
-        file = Tempfile.new(SecureRandom.uuid, "r:UTF-8")
+        file = Tempfile.new(SecureRandom.uuid)
         s3.get_object(bucket:Figaro.env.AWS_S3_BUCKET, key:aws_object_key) do |chunk|
           file.write(chunk)
         end
