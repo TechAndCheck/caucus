@@ -122,7 +122,6 @@ module Admin
 
       return object.key
     rescue StandardError => e
-      byebug
       raise "Error uploading object for import: #{e.message}"
     end
   end
