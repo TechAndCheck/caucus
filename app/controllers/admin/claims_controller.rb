@@ -115,10 +115,14 @@ module Admin
     def upload_file(object_key, file_path)
       s3 = Aws::S3::Resource.new(region: Figaro.env.AWS_REGION)
 
-      object = s3.bucket(Figaro.env.AWS_S3_BUCKET).object(object_key)
+      bucket = s3.bucket(Figaro.env.AWS_IMPORT_BUCKET)
+      object = bucket.object(object_key)
       object.upload_file(file_path)
+      object.wait_until_exists
+
       return object.key
     rescue StandardError => e
+      byebug
       raise "Error uploading object for import: #{e.message}"
     end
   end
