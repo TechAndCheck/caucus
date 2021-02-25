@@ -68,6 +68,8 @@ It renders the `_table` partial to display details about the resources.
   <div data-export-options-target="limitInputForm" class="claim--export-dropdown">
     <p style="margin-top: auto; margin-right: 5px;"><small>Minimum number of claims per category</small></p>
     <input type="text" style="width: 50px; margin-right: 10px; text-align: center;" placeholder="0" data-action="export-options#formUpdated" data-export-options-target="textBox">
+    <p style="margin-top: auto; margin-right: 5px;"><small>Include category totals?</small></p>
+    <input type="checkbox" style="width: 50px; margin-right: 10px; text-align: center;" data-action="export-options#formUpdated" data-export-options-target="checkBox">
     <a href="" style="margin-left: 5px; margin-top: 0;" class="button" data-export-options-target="submitLink"><%= t("submit") %></a>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['limitInputForm', 'textBox', 'submitLink']
+  static targets = ['limitInputForm', 'textBox', 'checkBox', 'submitLink']
 
   static values = { formState: String }
 
@@ -25,12 +25,22 @@ export default class extends Controller {
   }
 
   formUpdated = (event) => {
+    event.preventDefault()
     const submitUrl = '/admin/claims/export.csv'
-    const limit = parseInt(this.textBoxTarget.value, 10)
-    if (this.textBoxTarget.value.length > 0 && (Number.isNaN(limit))) {
-      alert('WARNING: Only whole numbers are allowed, or really even make sense.')
-      return
+    let limit = parseInt(this.textBoxTarget.value, 10)
+    // Check if a number has been typed
+    if (Number.isNaN(limit)) {
+      // If it's not a number, but something is typed, error out.
+      if (this.textBoxTarget.value.length > 0) {
+        alert('WARNING: Only whole numbers are allowed, or really even make sense.')
+        return
+      }
+
+      // We default to a limit of 0 if the field is blank
+      limit = 0
     }
-    this.submitLinkTarget.href = `${submitUrl}?minimum_categories=${limit}`
+
+    const includeTotals = this.checkBoxTarget.value === 'on' ? 'true' : 'false'
+    this.submitLinkTarget.href = `${submitUrl}?minimum_categories=${limit}&include_totals=${includeTotals}`
   }
 }

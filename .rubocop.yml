@@ -38,7 +38,7 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 # Rails generates this file
-Layout/Tab:
+Layout/IndentationStyle:
   Exclude:
     - 'db/seeds.rb'
 

@@ -13,6 +13,8 @@ module Admin
     def export
       # Only export claims with at least one category.
       minimum_categories = params["minimum_categories"].blank? ? 0 : params["minimum_categories"].to_i
+      include_totals = params["include_totals"].downcase == "true" ? true : false
+
       # claims = Claim.joins(:categories).where.not(categories: []).where("categories_count > #{minimum_categories}").distinct
       categories = Category.where("claims_count > #{minimum_categories}").distinct
       claim_ids = ActiveRecord::Base.connection.execute(
@@ -33,16 +35,15 @@ module Admin
         claims: claims,
         categories: categories
       })
-      processed = exporter.process(response, headers)
+      processed = exporter.process(response, headers, totals: include_totals)
 
-      # send_data csv
       respond_to do |format|
         format.csv do
-          # rubocop:disable Lint/UselessAssignment
+          #rubocop:disable Lint/UselessAssignment
           headers = processed[:headers]
           response = processed[:response]
           self.response_body = processed[:enumerator]
-          # rubocop:enable Lint/UselessAssignment
+          #rubocop:enable Lint/UselessAssignment
         end
       end
     end
