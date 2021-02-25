@@ -1,4 +1,4 @@
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 module Admin
   class ClaimsController < Admin::ApplicationController
@@ -39,11 +39,11 @@ module Admin
 
       respond_to do |format|
         format.csv do
-          #rubocop:disable Lint/UselessAssignment
+          # rubocop:disable Lint/UselessAssignment
           headers = processed[:headers]
           response = processed[:response]
           self.response_body = processed[:enumerator]
-          #rubocop:enable Lint/UselessAssignment
+          # rubocop:enable Lint/UselessAssignment
         end
       end
     end
@@ -97,7 +97,7 @@ module Admin
 
       uuid = SecureRandom.uuid # We use a uuid in two place, why not just make one?
       job = nil
-      if Rails.env.production? || Figaro.env.UPLOAD_IMPORT_TO_S3.downcase == 'true'
+      if Rails.env.production? || Figaro.env.UPLOAD_IMPORT_TO_S3.downcase == "true"
         file_name = uuid
         object_key = upload_file(file_name, params[:file].path)
         job = ProcessImportJob.set(wait: 10.seconds).perform_later(aws_object_key: object_key)
@@ -108,7 +108,7 @@ module Admin
         job = ProcessImportJob.set(wait: 2.seconds).perform_later(file_path: new_file_path)
       end
 
-      render json: {'jobId': job.job_id}
+      render json: { 'jobId': job.job_id }
     end
 
   private
@@ -121,7 +121,7 @@ module Admin
       object.upload_file(file_path)
       object.wait_until_exists
 
-      return object.key
+      object.key
     rescue StandardError => e
       raise "Error uploading object for import: #{e.message}"
     end
