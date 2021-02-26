@@ -6,7 +6,7 @@ class CsvBinaryMlExporter < Exporter
 
     raise "Categories must be provided for exporting" if @categories.nil?
 
-    headers = ["claim"]
+    headers = ["claim", "article"]
     headers.concat(@categories.collect { |c| c.name })
 
     args[:headers] = headers
@@ -20,7 +20,7 @@ class CsvBinaryMlExporter < Exporter
 
     # streaming_headers
     # nginx doc: Setting this to "no" will allow unbuffered responses suitable for Comet and HTTP streaming applications
-    headers['X-Accel-Buffering'] = 'no'
+    headers["X-Accel-Buffering"] = "no"
     headers["Cache-Control"] ||= "no-cache"
 
     # Rack::ETag 2.2.x no longer respects 'Cache-Control'
@@ -40,12 +40,14 @@ class CsvBinaryMlExporter < Exporter
       categories_count = @categories.count
       @objects.find_each do |object|
         binary_array = create_binary_array(object, categories_count, category_look_up)
-        y << CSV::Row.new(csv_header, [object.statement].concat(binary_array)).to_s(csv_options)
+        y << CSV::Row.new(csv_header, [object.statement, object.article].concat(binary_array)).to_s(csv_options)
       end unless @objects.nil?
 
       if totals == true
         category_totals = @categories.map { |category| category.claims.count }
-        y << CSV::Row.new(csv_header,["Total: "].concat(category_totals)).to_s(csv_options)
+        total_label_array = ["Total: "]
+        total_label_array + "" while total_label_array.length < csv_header.length
+        y << CSV::Row.new(csv_header, ["Total: "].concat(category_totals)).to_s(csv_options)
       end
     end
 

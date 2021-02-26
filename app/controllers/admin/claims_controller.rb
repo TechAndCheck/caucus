@@ -14,9 +14,12 @@ module Admin
       # Only export claims with at least one category.
       minimum_categories = params["minimum_categories"].blank? ? 0 : params["minimum_categories"].to_i
       include_totals = params["include_totals"].downcase == "true" ? true : false
+      only_articles = params["only_articles"].downcase == "true" ? true : false
 
       # claims = Claim.joins(:categories).where.not(categories: []).where("categories_count > #{minimum_categories}").distinct
       categories = Category.where("claims_count > #{minimum_categories}").distinct
+
+      # Get all claim_ids that are in categories that have the minimum amount of claims
       claim_ids = ActiveRecord::Base.connection.execute(
         " SELECT DISTINCT claims.id
           FROM claims
@@ -29,7 +32,13 @@ module Admin
           )
         "
       ).values.flatten
-      claims = Claim.includes([:categories]).where(id: claim_ids).distinct
+
+      # Now get all the ActiveRecord objects for the claims_ids
+      claims = Claim.includes([:categories]).where(id: claim_ids)
+      # If we want claims that only have the article text, set that
+      claims = claims.where.not(article: nil) if only_articles
+      # Make sure they're all unique
+      claims = claims.distinct
 
       exporter = CsvBinaryMlExporter.new({
         claims: claims,
@@ -106,6 +115,7 @@ module Admin
         FileUtils.cp(params[:file].to_path, new_file_path)
 
         job = ProcessImportJob.set(wait: 2.seconds).perform_later(file_path: new_file_path)
+        # job = ProcessImportJob.perform_now(file_path: new_file_path)
       end
 
       render json: { 'jobId': job.job_id }

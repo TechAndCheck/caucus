@@ -18,10 +18,10 @@ class ProcessImportJob < ApplicationJob
       else
         file = Tempfile.new(SecureRandom.uuid)
 
-        s3.get_object(bucket:Figaro.env.AWS_IMPORT_BUCKET, key:aws_object_key) do |chunk|
-          file.write(chunk.force_encoding('UTF-8'))
+        s3.get_object(bucket: Figaro.env.AWS_IMPORT_BUCKET, key: aws_object_key) do |chunk|
+          file.write(chunk.force_encoding("UTF-8"))
         end
-        s3.delete_object(bucket:Figaro.env.AWS_IMPORT_BUCKET, key:aws_object_key)
+        s3.delete_object(bucket: Figaro.env.AWS_IMPORT_BUCKET, key: aws_object_key)
       end
 
       number_of_lines = `wc -l #{file.path}`.to_i
@@ -31,7 +31,8 @@ class ProcessImportJob < ApplicationJob
         json = JSON.parse(line)
         claim = Claim.create({
           statement: json["claim"],
-          speaker_name: json["author"]
+          speaker_name: json["author"],
+          article: json["article"]
         })
 
         json["categories"].each do |category|
@@ -70,7 +71,7 @@ class ProcessImportJob < ApplicationJob
       rescue Exception => e
         logger.warn "Exception raised when processing import: #{e}"
         # If there's an exception let's delete the file instead
-        File.delete(file_path) if File.exists?(file_path)
+        File.delete(file_path) if File.exist?(file_path)
       end
     end
   end

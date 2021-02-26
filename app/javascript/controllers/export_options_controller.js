@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['limitInputForm', 'textBox', 'checkBox', 'submitLink']
+  static targets = ['limitInputForm', 'textBox', 'checkBox', 'articleOnlyCheckBox', 'submitLink']
 
   static values = { formState: String }
 
@@ -40,7 +40,6 @@ export default class extends Controller {
       limit = 0
     }
 
-    const includeTotals = this.checkBoxTarget.value === 'on' ? 'true' : 'false'
-    this.submitLinkTarget.href = `${submitUrl}?minimum_categories=${limit}&include_totals=${includeTotals}`
+    this.submitLinkTarget.href = `${submitUrl}?minimum_categories=${limit}&include_totals=${this.checkBoxTarget.checked}&only_articles=${this.articleOnlyCheckBoxTarget.checked}`
   }
 }
