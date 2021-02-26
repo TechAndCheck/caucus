@@ -29,14 +29,13 @@ class ProcessImportJob < ApplicationJob
       File.foreach(file).with_index do |line, line_num|
         logger.debug(line)
         json = JSON.parse(line)
-        claim = Claim.create({
-          statement: json["claim"],
-          speaker_name: json["author"],
-          article: json["article"]
-        })
+
+        claim = Claim.find_or_create_by({ statement: json["claim"], speaker_name: json["author"] })
+        claim.article = json["article"] unless json["article"].nil?
 
         json["categories"].each do |category|
-          claim.categories << Category.find_or_create_by(name: category)
+          new_category = Category.find_or_create_by(name: category)
+          claim.categories << new_category unless claim.categories.include?(new_category)
         end
 
         begin
