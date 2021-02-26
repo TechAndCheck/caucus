@@ -1,4 +1,4 @@
-require 'aws-sdk-s3'
+require "aws-sdk-s3"
 
 class ProcessImportJob < ApplicationJob
   queue_as :default
