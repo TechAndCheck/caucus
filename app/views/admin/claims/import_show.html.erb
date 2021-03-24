@@ -29,7 +29,7 @@ as well as a link to its edit page.
 
     <%= form_with html: { data: {
                             type: "html",
-                            action: "ajax:success->upload-process-status#onPostSuccess"
+                            action: "ajax:success->upload-process-status#onPostSuccess ajax:beforeSend->upload-process-status#onPostStart"
                           }
                         } do |form| %>
 

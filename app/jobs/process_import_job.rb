@@ -30,21 +30,30 @@ class ProcessImportJob < ApplicationJob
         logger.debug(line)
         json = JSON.parse(line)
 
-        claim = Claim.find_or_create_by({ statement: json["claim"], speaker_name: json["author"] })
-        claim.article = json["article"] unless json["article"].nil?
+        categories = Category.where({ name: json["categories"] }).to_a
+        json["categories"].each do |category_name|
+          category = categories.find { |c| c.name == category_name }
+          next unless category.nil?
 
-        json["categories"].each do |category|
-          new_category = Category.find_or_create_by(name: category)
-          claim.categories << new_category unless claim.categories.include?(new_category)
+          categories << Category.create(name: category_name)
         end
 
         begin
-          claim.save!
+          claim = Claim.new({
+            statement: json["claim"],
+            speaker_name: json["author"],
+            article: json["article"]
+          })
         rescue Exception => e
           logger.debug("Exception when saving claim #{claim}")
           logger.debug("#{e}")
           raise e
           # Eat it and move forward
+        end
+
+        json["categories"].each do |category|
+          new_category = Category.find_or_create_by(name: category)
+          claim.categories << new_category unless claim.categories.include?(new_category)
         end
 
         # Every 10 put it out

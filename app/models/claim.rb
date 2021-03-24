@@ -24,5 +24,4 @@ private
   def deduplicate_categories
     self.categories = self.categories.uniq
   end
-
 end

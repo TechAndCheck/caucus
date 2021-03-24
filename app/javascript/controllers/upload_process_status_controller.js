@@ -27,6 +27,11 @@ export default class extends Controller {
     )
   }
 
+  onPostStart = (event) => {
+    this.submitButtonTarget.disabled = true
+    this.submitButtonTarget.value = 'Uploading...'
+  }
+
   _cableConnected = () => {
     console.log('Connected')
     this.progressTarget.value = 'Prepping...'
