@@ -38,22 +38,19 @@ class ProcessImportJob < ApplicationJob
           categories << Category.create(name: category_name)
         end
 
-        begin
-          claim = Claim.new({
-            statement: json["claim"],
-            speaker_name: json["author"],
-            article: json["article"]
-          })
-        rescue Exception => e
-          logger.debug("Exception when saving claim #{claim}")
-          logger.debug("#{e}")
-          raise e
-          # Eat it and move forward
-        end
+        claim_dictionary = {
+          statement: json["claim"],
+          speaker_name: json["author"],
+          article: json["article"],
+          categories: categories
+        }
 
-        json["categories"].each do |category|
-          new_category = Category.find_or_create_by(name: category)
-          claim.categories << new_category unless claim.categories.include?(new_category)
+        begin
+          Claim.create(claim_dictionary)
+        rescue Exception => e
+          logger.debug("Exception when saving claim #{claim_dictionary}")
+          logger.debug("#{e}")
+          # Eat it and move forward
         end
 
         # Every 10 put it out
