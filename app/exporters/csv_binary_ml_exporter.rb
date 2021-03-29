@@ -46,7 +46,7 @@ class CsvBinaryMlExporter < Exporter
       if totals == true
         category_totals = @categories.map { |category| category.claims_count }
         total_label_array = ["Total: "]
-        total_label_array + "" while total_label_array.length < csv_header.length
+        total_label_array << "" while total_label_array.length < csv_header.length
         y << CSV::Row.new(csv_header, ["Total: "].concat(category_totals)).to_s(csv_options)
       end
     end
