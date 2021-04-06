@@ -3,9 +3,12 @@ class CsvBinaryMlExporter < Exporter
 
   def initialize(**args)
     @categories = args[:categories]
+    @count = args[:count]
 
     raise "Categories must be provided for exporting" if @categories.nil?
+    @count = @count.nil? ? 0 : @count.to_i
 
+    @categories = @categories.filter { |c| c.claims_count >= @count }
     headers = ["claim", "article"]
     headers.concat(@categories.collect { |c| c.name })
 
@@ -33,7 +36,7 @@ class CsvBinaryMlExporter < Exporter
     csv_header = @headers.values unless @headers.nil?
     csv_options = { col_sep: ";" }
 
-    category_look_up = generate_lookup_hash @categories
+    category_look_up = generate_lookup_hash @categories, @count
 
     csv_enumerator = Enumerator.new do |y|
       y << CSV::Row.new(csv_header, csv_header, true).to_s(csv_options) unless @headers.nil?
@@ -45,9 +48,9 @@ class CsvBinaryMlExporter < Exporter
 
       if totals == true
         category_totals = @categories.map { |category| category.claims_count }
-        total_label_array = ["Total: "]
-        total_label_array << "" while total_label_array.length < csv_header.length
-        y << CSV::Row.new(csv_header, ["Total: "].concat(category_totals)).to_s(csv_options)
+        total_label_array = ["Total: ", ""]
+        # total_label_array << "" while total_label_array.length < csv_header.length
+        y << CSV::Row.new(csv_header, total_label_array.concat(category_totals)).to_s(csv_options)
       end
     end
 
@@ -57,9 +60,11 @@ class CsvBinaryMlExporter < Exporter
 
 private
 
-  def generate_lookup_hash(categories)
+  def generate_lookup_hash(categories, count = 0)
     category_look_up = {}
-    categories.each_with_index { |c, i| category_look_up[c.name] = i }
+    categories.each_with_index do |c, i|
+      category_look_up[c.name] = i
+    end
     category_look_up
   end
 

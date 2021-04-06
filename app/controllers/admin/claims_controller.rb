@@ -42,7 +42,8 @@ module Admin
 
       exporter = CsvBinaryMlExporter.new({
         claims: claims,
-        categories: categories
+        categories: categories,
+        count: params["minimum_categories"]
       })
       processed = exporter.process(response, headers, totals: include_totals)
 

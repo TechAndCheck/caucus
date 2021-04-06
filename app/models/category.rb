@@ -29,5 +29,4 @@ private
       update_categories_count(true)
     end
   end
-
 end
